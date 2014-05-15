@@ -1,0 +1,8 @@
+rect 50 50 100 100
+img 300 300 a.jpg
+text 0 0 Hello world!
+newpage
+font Times New Roman
+fontsize 72
+color 25 25 25
+text 20 20 Thanks!
