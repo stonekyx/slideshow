@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "instruction.h"
-#include "parameter.h"
 
 namespace Slideshow {
     class InstGContext : public Instruction {
@@ -13,7 +12,7 @@ namespace Slideshow {
         protected:
         public:
             void run(SDL_Window *);
-            static bool explain(std::vector<Parameter*>, Instruction *&);
+            static bool explain(std::vector<std::string>, Instruction *&);
     };
 }
 

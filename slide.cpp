@@ -21,9 +21,9 @@ void Slide::run(SDL_Window *window)
     SDL_Delay(1000);
 }
 
-bool Slide::explain(vector<Parameter*> prms, Instruction *&inst)
+bool Slide::explain(vector<string> prms, Instruction *&inst)
 {
-    if(dynamic_cast<StrParameter*>(prms[0])->get_value().compare("newpage")==0) {
+    if(prms[0].compare("newpage")==0) {
         inst = new Slide();
         return true;
     }

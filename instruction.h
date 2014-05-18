@@ -7,14 +7,12 @@
 
 #include <SDL.h>
 
-#include "parameter.h"
-
 namespace Slideshow {
     class Instruction {
         public:
             //Plugins derives from this class, so they'll have
             //this typedef too.
-            typedef bool (*explain_t)(std::vector<Parameter*>, Instruction *&);
+            typedef bool (*explain_t)(std::vector<std::string>, Instruction *&);
         private:
             typedef explain_t (*explain_gen_t)();
             std::string name;
@@ -28,7 +26,7 @@ namespace Slideshow {
                 return name;
             }
             virtual void run(SDL_Window *)=0;
-            static bool explain(std::vector<Parameter*>, Instruction *&);
+            static bool explain(std::vector<std::string>, Instruction *&);
     };
 }
 

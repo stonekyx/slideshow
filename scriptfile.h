@@ -11,13 +11,12 @@
 
 #include "file.h"
 #include "slide.h"
-#include "parameter.h"
 
 namespace Slideshow {
     class ScriptFile : public File {
         private:
             std::ifstream _file;
-            bool read_line(std::vector<Parameter*> &);
+            bool read_line(std::vector<std::string> &);
         protected:
         public:
             ScriptFile(const char *);

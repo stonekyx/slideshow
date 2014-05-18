@@ -11,9 +11,9 @@ void InstText::run(SDL_Window *)
     SDL_Delay(1000);
 }
 
-bool InstText::explain(vector<Parameter*> prms, Instruction *&inst)
+bool InstText::explain(vector<string> prms, Instruction *&inst)
 {
-    if(dynamic_cast<StrParameter*>(prms[0])->get_value().compare("text")==0) {
+    if(prms[0].compare("text")==0) {
         inst = new InstText();
         return true;
     }

@@ -45,7 +45,7 @@ void Instruction::init_instlist()
     //no need for constructor in each plugin.
 }
 
-bool Instruction::explain(vector<Parameter*> prms, Instruction *&res)
+bool Instruction::explain(vector<string> prms, Instruction *&res)
 {
     if(NULL == Instruction::instlist) {
         Instruction::init_instlist();

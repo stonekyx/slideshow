@@ -10,7 +10,7 @@ using namespace Slideshow;
 using namespace std;
 using namespace boost;
 
-bool ScriptFile::read_line(vector<Parameter*> &res)
+bool ScriptFile::read_line(vector<string> &res)
 {
     string s;
     if(!std::getline(_file, s)) {
@@ -25,8 +25,7 @@ bool ScriptFile::read_line(vector<Parameter*> &res)
             if(it->find("//") == 0) break;
             raw_param = it->substr(0, it->find("//"));
         }
-        StrParameter *param = new StrParameter(raw_param);
-        res.push_back(param);
+        res.push_back(raw_param);
     }
     return true;
 }
@@ -50,7 +49,7 @@ ScriptFile::~ScriptFile()
 bool ScriptFile::getSlides(vector<Slide*> &res)
 {
     Slide *slide = new Slide();
-    vector<Parameter*> prms;
+    vector<string> prms;
     unsigned int linecnt=0;
     while(read_line(prms)) {
         linecnt++;
