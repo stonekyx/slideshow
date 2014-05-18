@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include <SDL.h>
+
 #include "parameter.h"
 
 namespace Slideshow {
@@ -25,7 +27,7 @@ namespace Slideshow {
             const std::string &get_name() {
                 return name;
             }
-            virtual void run()=0;
+            virtual void run(SDL_Window *)=0;
             static bool explain(std::vector<Parameter*>, Instruction *&);
     };
 }

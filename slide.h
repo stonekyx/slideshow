@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include <SDL.h>
+
 #include "instruction.h"
 
 namespace Slideshow {
@@ -12,7 +14,7 @@ namespace Slideshow {
             std::vector<Instruction*> inst;
         protected:
         public:
-            void run();
+            void run(SDL_Window *);
             void add_inst(Instruction *);
             static bool explain(std::vector<Parameter*>, Instruction *&);
     };

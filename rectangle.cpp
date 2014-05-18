@@ -6,9 +6,10 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstRect::run()
+void InstRect::run(SDL_Window *)
 {
     cout<<"Got rect"<<endl;
+    SDL_Delay(1000);
 }
 
 bool InstRect::explain(vector<Parameter*> prms, Instruction *&inst)

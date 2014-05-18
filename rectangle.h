@@ -10,7 +10,7 @@ namespace Slideshow {
         private:
         protected:
         public:
-            void run();
+            void run(SDL_Window *);
             static bool explain(std::vector<Parameter*>, Instruction *&);
     };
 }

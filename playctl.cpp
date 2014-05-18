@@ -3,7 +3,7 @@
 #include <exception>
 #include <dlfcn.h>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "file.h"
 #include "slide.h"
@@ -32,18 +32,12 @@ void PlayControl::Private::init_sdl()
     if(window==NULL) {
         cerr<<"Failed creating SDL window"<<endl;
         throw new exception();
-    } else {
-        SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
-        SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
-        SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_Rect rect;
-        rect.x = rect.y = 100;
-        rect.w = rect.h = 200;
-        SDL_RenderFillRect(renderer, &rect);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(2000);
     }
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+    SDL_DestroyRenderer(renderer);
 }
 
 void PlayControl::Private::deinit_sdl()
@@ -76,5 +70,13 @@ PlayControl::~PlayControl()
     for(vector<Slide*>::iterator it = priv->slides.begin();
             it!=priv->slides.end(); it++) {
         delete (*it);
+    }
+}
+
+void PlayControl::play()
+{
+    for(vector<Slide*>::iterator it = priv->slides.begin();
+            it!=priv->slides.end(); it++) {
+        (*it)->run(priv->window);
     }
 }

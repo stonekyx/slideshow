@@ -5,9 +5,10 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstImg::run()
+void InstImg::run(SDL_Window *)
 {
     cout<<"Got image"<<endl;
+    SDL_Delay(1000);
 }
 
 bool InstImg::explain(vector<Parameter*> prms, Instruction *&inst)
