@@ -18,6 +18,8 @@ pkglib_LTLIBRARIES += inst_plugins/image.la
 
 inst_plugins_image_la_SOURCES = image.cpp
 inst_plugins_image_la_LDFLAGS = $(inst_plugins_ldflags)
+inst_plugins_image_la_CXXFLAGS = $(SDL2_image_CFLAGS)
+inst_plugins_image_la_LIBADD = $(SDL2_image_LIBS)
 
 pkglib_LTLIBRARIES += inst_plugins/text.la
 

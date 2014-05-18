@@ -5,7 +5,7 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstText::run(SDL_Window *)
+void InstText::run(SDL_Window *, SDL_Renderer *)
 {
     cout<<"Got text"<<endl;
     SDL_Delay(1000);

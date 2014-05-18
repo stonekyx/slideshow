@@ -14,7 +14,7 @@ namespace Slideshow {
             std::vector<Instruction*> inst;
         protected:
         public:
-            void run(SDL_Window *);
+            void run(SDL_Window *, SDL_Renderer *);
             void add_inst(Instruction *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };

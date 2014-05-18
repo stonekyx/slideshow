@@ -8,10 +8,10 @@
 namespace Slideshow {
     class InstRect : public Instruction {
         private:
-            int x, y, w, h;
+            SDL_Rect rect;
         protected:
         public:
-            void run(SDL_Window *);
+            void run(SDL_Window *, SDL_Renderer *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

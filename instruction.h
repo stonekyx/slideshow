@@ -25,7 +25,7 @@ namespace Slideshow {
             const std::string &get_name() {
                 return name;
             }
-            virtual void run(SDL_Window *)=0;
+            virtual void run(SDL_Window *, SDL_Renderer *)=0;
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

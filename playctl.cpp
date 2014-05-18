@@ -16,6 +16,7 @@ class PlayControl::Private {
     public:
         vector<Slide*> slides;
         SDL_Window *window;
+        SDL_Renderer *renderer;
 
         void init_sdl();
         void deinit_sdl();
@@ -33,11 +34,10 @@ void PlayControl::Private::init_sdl()
         cerr<<"Failed creating SDL window"<<endl;
         throw new exception();
     }
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-    SDL_DestroyRenderer(renderer);
 }
 
 void PlayControl::Private::deinit_sdl()
@@ -77,6 +77,6 @@ void PlayControl::play()
 {
     for(vector<Slide*>::iterator it = priv->slides.begin();
             it!=priv->slides.end(); it++) {
-        (*it)->run(priv->window);
+        (*it)->run(priv->window, priv->renderer);
     }
 }

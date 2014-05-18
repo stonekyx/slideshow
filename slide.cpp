@@ -10,12 +10,12 @@ void Slide::add_inst(Instruction *inst)
     this->inst.push_back(inst);
 }
 
-void Slide::run(SDL_Window *window)
+void Slide::run(SDL_Window *window, SDL_Renderer *renderer)
 {
     cout<<"Slide start"<<endl;
     for(vector<Instruction*>::iterator it = inst.begin();
             it!=inst.end(); it++) {
-        (*it)->run(window);
+        (*it)->run(window, renderer);
     }
     cout<<"Slide end"<<endl;
     SDL_Delay(1000);
