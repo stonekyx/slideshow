@@ -2,9 +2,10 @@ ACLOCAL_AMFLAGS = -I m4
 
 bin_PROGRAMS = main
 
-main_SOURCES = main.cpp
+main_SOURCES = main.cpp playctl.h playctl.cpp
 
-main_LDADD = -ldl
+main_LDADD = -ldl $(SDL2_LIBS)
+main_CXXFLAGS = $(SDL2_CFLAGS)
 
 inst_plugins_ldflags = -module -shared -avoid-version
 
