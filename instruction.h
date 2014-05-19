@@ -13,8 +13,8 @@ namespace Slideshow {
             //Plugins derives from this class, so they'll have
             //this typedef too.
             typedef bool (*explain_t)(std::vector<std::string>, Instruction *&);
-        private:
             typedef explain_t (*explain_gen_t)();
+        private:
             std::string name;
             static std::vector<explain_t> *instlist;
             static void init_instlist();
@@ -25,7 +25,7 @@ namespace Slideshow {
             const std::string &get_name() {
                 return name;
             }
-            virtual void run(SDL_Window *, SDL_Renderer *)=0;
+            virtual int run(SDL_Window *, SDL_Renderer *)=0;
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

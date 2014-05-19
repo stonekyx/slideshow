@@ -9,9 +9,11 @@ namespace Slideshow {
     class InstRect : public Instruction {
         private:
             SDL_Rect rect;
+            bool finished;
         protected:
+            InstRect();
         public:
-            void run(SDL_Window *, SDL_Renderer *);
+            int run(SDL_Window *, SDL_Renderer *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

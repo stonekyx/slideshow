@@ -1,3 +1,4 @@
+newpage
 rect 50 50 100 100
 img 20 30 a.bmp
 text 0 0 Hello world!

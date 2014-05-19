@@ -5,10 +5,20 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstText::run(SDL_Window *, SDL_Renderer *)
+int InstText::run(SDL_Window *, SDL_Renderer *)
 {
+    if(finished) {
+        finished = false;
+        return -2;
+    }
     cout<<"Got text"<<endl;
-    SDL_Delay(1000);
+    finished = true;
+    return -1;
+}
+
+InstText::InstText()
+{
+    finished = false;
 }
 
 bool InstText::explain(vector<string> prms, Instruction *&inst)

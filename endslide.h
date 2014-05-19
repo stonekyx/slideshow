@@ -1,19 +1,18 @@
-#ifndef SLIDE_H
+#ifndef ENDSLIDE_H
 
-#define SLIDE_H
+#define ENDSLIDE_H
 
 #include <vector>
-
-#include <SDL.h>
 
 #include "instruction.h"
 
 namespace Slideshow {
-    class Slide : public Instruction {
+    class EndSlide : public Instruction {
         private:
+            int delay;
             bool finished;
         protected:
-            Slide();
+            EndSlide();
         public:
             int run(SDL_Window *, SDL_Renderer *);
             static bool explain(std::vector<std::string>, Instruction *&);

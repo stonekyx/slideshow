@@ -12,9 +12,11 @@ namespace Slideshow {
         private:
             int x, y;
             std::string path;
+            bool finished;
         protected:
+            InstImg();
         public:
-            void run(SDL_Window *, SDL_Renderer *);
+            int run(SDL_Window *, SDL_Renderer *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

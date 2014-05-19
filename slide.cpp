@@ -1,24 +1,26 @@
 #include <iostream>
 
+#include "util.h"
 #include "slide.h"
 
 using namespace Slideshow;
 using namespace std;
 
-void Slide::add_inst(Instruction *inst)
+int Slide::run(SDL_Window *window, SDL_Renderer *renderer)
 {
-    this->inst.push_back(inst);
+    if(finished) {
+        finished = false;
+        return -2;
+    }
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+    finished = true;
+    return -1;
 }
 
-void Slide::run(SDL_Window *window, SDL_Renderer *renderer)
+Slide::Slide()
 {
-    cout<<"Slide start"<<endl;
-    for(vector<Instruction*>::iterator it = inst.begin();
-            it!=inst.end(); it++) {
-        (*it)->run(window, renderer);
-    }
-    cout<<"Slide end"<<endl;
-    SDL_Delay(1000);
+    finished = false;
 }
 
 bool Slide::explain(vector<string> prms, Instruction *&inst)
@@ -28,4 +30,10 @@ bool Slide::explain(vector<string> prms, Instruction *&inst)
         return true;
     }
     return false;
+}
+
+extern "C"
+Slide::explain_t get_explain()
+{
+    return Slide::explain;
 }

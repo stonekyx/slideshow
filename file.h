@@ -4,17 +4,20 @@
 
 #include <vector>
 
-#include "slide.h"
 #include "instruction.h"
 
 namespace Slideshow {
-    class File {
+    class File : public Instruction {
         private:
         protected:
+            std::vector<Instruction*> inst;
+            std::vector<Instruction*>::iterator inst_it;
+            Instruction::explain_t inst_abs_explain;
+
             File() {}
+            virtual bool get_inst(std::vector<Instruction*> &)=0;
         public:
             virtual ~File() {};
-            virtual bool getSlides(std::vector<Slide*> &)=0;
     };
     typedef File *(*file_creator_t)(const char *);
     typedef void (*file_destroyer_t)(File *);

@@ -6,10 +6,10 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstGContext::run(SDL_Window *, SDL_Renderer *)
+int InstGContext::run(SDL_Window *, SDL_Renderer *)
 {
     cout<<"Got gcontext change"<<endl;
-    SDL_Delay(1000);
+    return -2;
 }
 
 bool InstGContext::explain(vector<string> prms, Instruction *&inst)

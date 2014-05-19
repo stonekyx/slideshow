@@ -11,7 +11,7 @@ namespace Slideshow {
         private:
         protected:
         public:
-            void run(SDL_Window *, SDL_Renderer *);
+            int run(SDL_Window *, SDL_Renderer *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

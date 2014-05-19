@@ -8,8 +8,12 @@
 using namespace Slideshow;
 using namespace std;
 
-void InstImg::run(SDL_Window *window, SDL_Renderer *renderer)
+int InstImg::run(SDL_Window *window, SDL_Renderer *renderer)
 {
+    if(finished) {
+        finished = false;
+        return -2;
+    }
     cout<<"Got image"<<endl;
     SDL_Texture *img = IMG_LoadTexture(renderer, path.c_str());
     SDL_Rect rect;
@@ -17,7 +21,13 @@ void InstImg::run(SDL_Window *window, SDL_Renderer *renderer)
     SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
     SDL_RenderCopy(renderer, img, NULL, &rect);
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
+    finished = true;
+    return -1;
+}
+
+InstImg::InstImg()
+{
+    finished = false;
 }
 
 bool InstImg::explain(vector<string> prms, Instruction *&inst)

@@ -5,7 +5,6 @@
 #include <sys/stat.h>
 
 #include "instruction.h"
-#include "slide.h"
 
 #define INST_PLUGIN_PATH "inst_plugins"
 
@@ -20,7 +19,6 @@ void Instruction::init_instlist()
         return;
     }
     Instruction::instlist = new vector<explain_t>();
-    Instruction::instlist->push_back(Slide::explain);
 
     {
         DIR *inst_plugins = opendir(INST_PLUGIN_PATH);
@@ -57,4 +55,12 @@ bool Instruction::explain(vector<string> prms, Instruction *&res)
         }
     }
     return false;
+}
+
+//---------------------dlsym interface-------------------
+
+extern "C"
+Instruction::explain_t get_explain()
+{
+    return Instruction::explain;
 }
