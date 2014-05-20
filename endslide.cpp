@@ -5,7 +5,7 @@
 using namespace Slideshow;
 using namespace std;
 
-int EndSlide::run(SDL_Window *window, SDL_Renderer *renderer)
+int EndSlide::run(GContext &gc)
 {
     if(!finished) {
         return delay;

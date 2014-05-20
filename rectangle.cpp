@@ -8,17 +8,17 @@
 using namespace Slideshow;
 using namespace std;
 
-int InstRect::run(SDL_Window *window, SDL_Renderer *renderer)
+int InstRect::run(GContext &gc)
 {
     if(finished) {
         finished = false;
         return -2;
     }
     cout<<"Got rect"<<endl;
-    //TODO: graphical context
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &this->rect);
-    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(gc.renderer,
+            gc.fg.r, gc.fg.g, gc.fg.b, gc.fg.a);
+    SDL_RenderFillRect(gc.renderer, &this->rect);
+    SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
 }

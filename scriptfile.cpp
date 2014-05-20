@@ -19,9 +19,9 @@ bool ScriptFile::read_line(vector<string> &res)
     if(!std::getline(_file, s)) {
         return false;
     }
-    char_separator<char> sep(" \t");
-    tokenizer<char_separator<char> > tok(s, sep);
-    for(tokenizer<char_separator<char> >::iterator it = tok.begin();
+    escaped_list_separator<char> sep("\\", " \t", "\"");
+    tokenizer<escaped_list_separator<char> > tok(s, sep);
+    for(tokenizer<escaped_list_separator<char> >::iterator it = tok.begin();
             it!=tok.end(); it++) {
         string raw_param = *it;
         if(it->find("//") != string::npos) {
@@ -76,11 +76,11 @@ ScriptFile::~ScriptFile()
     _file.close();
 }
 
-int ScriptFile::run(SDL_Window *window, SDL_Renderer *renderer)
+int ScriptFile::run(GContext &gc)
 {
     int delay;
     while(inst_it!=inst.end() &&
-            (delay=(*inst_it)->run(window, renderer))==-2) {
+            (delay=(*inst_it)->run(gc))==-2) {
         inst_it++;
     }
     if(inst_it==inst.end()) {

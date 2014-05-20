@@ -16,7 +16,7 @@ namespace Slideshow {
         protected:
             InstImg();
         public:
-            int run(SDL_Window *, SDL_Renderer *);
+            int run(GContext &);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

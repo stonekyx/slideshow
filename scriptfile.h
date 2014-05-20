@@ -22,7 +22,7 @@ namespace Slideshow {
         public:
             ScriptFile(const char *);
             ~ScriptFile();
-            int run(SDL_Window *, SDL_Renderer *);
+            int run(GContext &);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

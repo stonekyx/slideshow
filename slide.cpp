@@ -6,14 +6,16 @@
 using namespace Slideshow;
 using namespace std;
 
-int Slide::run(SDL_Window *window, SDL_Renderer *renderer)
+int Slide::run(GContext &gc)
 {
     if(finished) {
         finished = false;
         return -2;
     }
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(gc.renderer,
+            gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
+    SDL_RenderClear(gc.renderer);
+    SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
 }

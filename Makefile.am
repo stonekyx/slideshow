@@ -7,7 +7,7 @@ main_SOURCES = main.cpp playctl.h playctl.cpp util.h util.cpp
 main_LDADD = -ldl $(SDL2_LIBS)
 AM_CPPFLAGS = $(SDL2_CFLAGS)
 
-inst_plugins_ldflags = -module -shared -avoid-version
+inst_plugins_ldflags = -module -shared -avoid-version -export-dynamic
 
 pkglib_LTLIBRARIES = instruction.la
 
@@ -40,6 +40,8 @@ pkglib_LTLIBRARIES += inst_plugins/text.la
 
 inst_plugins_text_la_SOURCES = text.cpp text.h
 inst_plugins_text_la_LDFLAGS = $(inst_plugins_ldflags)
+inst_plugins_text_la_CXXFLAGS = $(SDL2_ttf_CFLAGS)
+inst_plugins_text_la_LIBADD = $(SDL2_ttf_LIBS)
 
 pkglib_LTLIBRARIES += inst_plugins/gcontextchange.la
 

@@ -7,6 +7,8 @@
 
 #include <SDL.h>
 
+#include "gcontext.h"
+
 namespace Slideshow {
     class Instruction {
         public:
@@ -25,7 +27,7 @@ namespace Slideshow {
             const std::string &get_name() {
                 return name;
             }
-            virtual int run(SDL_Window *, SDL_Renderer *)=0;
+            virtual int run(GContext &)=0;
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

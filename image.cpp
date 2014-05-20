@@ -8,19 +8,19 @@
 using namespace Slideshow;
 using namespace std;
 
-int InstImg::run(SDL_Window *window, SDL_Renderer *renderer)
+int InstImg::run(GContext &gc)
 {
     if(finished) {
         finished = false;
         return -2;
     }
     cout<<"Got image"<<endl;
-    SDL_Texture *img = IMG_LoadTexture(renderer, path.c_str());
+    SDL_Texture *img = IMG_LoadTexture(gc.renderer, path.c_str());
     SDL_Rect rect;
     rect.x = x; rect.y = y;
     SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
-    SDL_RenderCopy(renderer, img, NULL, &rect);
-    SDL_RenderPresent(renderer);
+    SDL_RenderCopy(gc.renderer, img, NULL, &rect);
+    SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
 }

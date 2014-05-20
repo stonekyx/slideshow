@@ -11,6 +11,7 @@ LT_INIT()
 AC_CONFIG_MACRO_DIR([m4])
 PKG_CHECK_MODULES([SDL2], [sdl2])
 PKG_CHECK_MODULES([SDL2_image], [SDL2_image])
+PKG_CHECK_MODULES([SDL2_ttf], [SDL2_ttf])
 
 # Checks for programs.
 AC_PROG_CXX
