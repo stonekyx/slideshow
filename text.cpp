@@ -4,6 +4,7 @@
 
 #include <SDL_ttf.h>
 
+#include "util.h"
 #include "text.h"
 
 using namespace Slideshow;
@@ -19,18 +20,22 @@ int InstText::run(GContext &gc)
     TTF_Font *font = TTF_OpenFont(gc.font_family.c_str(), gc.font_size);
     SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, text.c_str(), gc.fg, gc.bg);
     SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
-    SDL_Rect rect;
-    rect.x = x;
-    rect.y = y;
-    SDL_QueryTexture(text_texture, NULL, NULL, &rect.w, &rect.h);
+    int x, y;
+    this->get_point(&x, &y);
+    SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
 }
 
-InstText::InstText(int x, int y, const string &text) :
-    finished(false), text(text), x(x), y(y)
+void InstText::get_point(int *x, int *y)
+{
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
+}
+
+InstText::InstText() : finished(false)
 {
 }
 
@@ -39,8 +44,11 @@ bool InstText::explain(vector<string> prms, Instruction *&inst)
     if(prms.size()<4 || prms[0].compare("text")) {
         return false;
     }
-    inst = new InstText(boost::lexical_cast<int>(prms[1]),
-            boost::lexical_cast<int>(prms[2]), prms[3]);
+    InstText *res = new InstText();
+    res->x = prms[1];
+    res->y = prms[2];
+    res->text = prms[3];
+    inst = res;
     return true;
 }
 

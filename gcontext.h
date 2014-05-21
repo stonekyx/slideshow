@@ -2,6 +2,8 @@
 
 #define GCONTEXT_H
 
+#include <string>
+
 #include <SDL.h>
 
 namespace Slideshow {

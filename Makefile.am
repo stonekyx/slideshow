@@ -5,13 +5,16 @@ bin_PROGRAMS = main
 main_SOURCES = main.cpp playctl.h playctl.cpp util.h util.cpp
 
 main_LDADD = -ldl $(SDL2_LIBS)
+main_LDFLAGS = -rdynamic
 AM_CPPFLAGS = $(SDL2_CFLAGS)
 
+inst_plugins_cxxflags = -rdynamic
 inst_plugins_ldflags = -module -shared -avoid-version -export-dynamic
 
 pkglib_LTLIBRARIES = instruction.la
 
 instruction_la_SOURCES = instruction.cpp instruction.h
+instruction_la_CXXFLAGS = $(inst_plugins_cxxflags)
 instruction_la_LDFLAGS = $(inst_plugins_ldflags)
 
 pkglib_LTLIBRARIES += inst_plugins/slide.la

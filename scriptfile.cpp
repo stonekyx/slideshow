@@ -54,7 +54,7 @@ bool ScriptFile::get_inst(vector<Instruction*> &res)
 
 ScriptFile::ScriptFile(const char *filename)
 {
-    void *handle = dlopen("./instruction.so", RTLD_LAZY);
+    void *handle = dlopen("./instruction.so", RTLD_LAZY | RTLD_GLOBAL);
     if(!handle) {
         throw new exception();
     }

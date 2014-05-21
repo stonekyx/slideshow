@@ -12,11 +12,12 @@ namespace Slideshow {
         private:
             bool finished;
             std::string text;
-            int x, y;
+            std::string x, y;
         protected:
-            InstText(int, int, const std::string &text);
+            InstText();
         public:
             int run(GContext &);
+            void get_point(int *, int *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

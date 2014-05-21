@@ -16,3 +16,12 @@ int Slideshow::wait_key(SDL_Keycode kc)
         }
     }
 }
+
+SDL_Rect Slideshow::get_rect_from_pos(int x, int y, SDL_Texture *texture)
+{
+    SDL_Rect rect;
+    SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+    rect.x = x;
+    rect.y = y;
+    return rect;
+}

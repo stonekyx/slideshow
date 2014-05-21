@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 #include <SDL.h>
 
@@ -17,17 +18,19 @@ namespace Slideshow {
             typedef bool (*explain_t)(std::vector<std::string>, Instruction *&);
             typedef explain_t (*explain_gen_t)();
         private:
-            std::string name;
             static std::vector<explain_t> *instlist;
             static void init_instlist();
+            static std::string *prms_pp(std::vector<std::string> &);
+            static std::map<std::string, Instruction *> inst_by_id;
         protected:
             Instruction() {}
+            static int parse_coor(const std::string &);
         public:
             virtual ~Instruction() {};
-            const std::string &get_name() {
-                return name;
-            }
             virtual int run(GContext &)=0;
+            virtual void get_point(int *x, int *y) {
+                *x = *y = 0;
+            }
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

@@ -2,18 +2,21 @@
 
 #define RECTANGLE_H
 
-#include "instruction.h"
 #include <vector>
+#include <string>
+
+#include "instruction.h"
 
 namespace Slideshow {
     class InstRect : public Instruction {
         private:
-            SDL_Rect rect;
+            std::string x, y, w, h;
             bool finished;
         protected:
             InstRect();
         public:
             int run(GContext &);
+            void get_point(int *, int *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

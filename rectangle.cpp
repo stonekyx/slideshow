@@ -15,12 +15,22 @@ int InstRect::run(GContext &gc)
         return -2;
     }
     cout<<"Got rect"<<endl;
+    SDL_Rect rect;
+    this->get_point(&rect.x, &rect.y);
+    rect.w = Instruction::parse_coor(this->w);
+    rect.h = Instruction::parse_coor(this->h);
     SDL_SetRenderDrawColor(gc.renderer,
             gc.fg.r, gc.fg.g, gc.fg.b, gc.fg.a);
-    SDL_RenderFillRect(gc.renderer, &this->rect);
+    SDL_RenderFillRect(gc.renderer, &rect);
     SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
+}
+
+void InstRect::get_point(int *x, int *y)
+{
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 InstRect::InstRect()
@@ -34,10 +44,10 @@ bool InstRect::explain(vector<string> prms, Instruction *&inst)
         return false;
     }
     InstRect *res = new InstRect();
-    res->rect.x = boost::lexical_cast<int>(prms[1]);
-    res->rect.y = boost::lexical_cast<int>(prms[2]);
-    res->rect.w = boost::lexical_cast<int>(prms[3]);
-    res->rect.h = boost::lexical_cast<int>(prms[4]);
+    res->x = prms[1];
+    res->y = prms[2];
+    res->w = prms[3];
+    res->h = prms[4];
     inst = res;
     return true;
 }

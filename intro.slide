@@ -1,0 +1,5 @@
+newpage
+font "simsun.ttc"
+fontsize 72
+text 0 70 "中文" id=123
+rect y:123 x:123 50 50

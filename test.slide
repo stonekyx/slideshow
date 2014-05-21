@@ -1,11 +1,11 @@
 newpage
-font "/home/stone/.fonts/georgia.ttf"
-fontsize 16
+font "georgia.ttf"
+fontsize 128
 rect 50 50 100 100
 img 20 30 a.bmp
-text 0 0 "Hello world!"
+text -1 -1 "Slideshow"
 newpage
-font "/home/stone/.fonts/times.ttf"
+font "times.ttf"
 fontsize 72
 fg 25 25 25 255
 rect 150 150 50 50

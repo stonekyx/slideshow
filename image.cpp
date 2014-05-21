@@ -17,12 +17,18 @@ int InstImg::run(GContext &gc)
     cout<<"Got image"<<endl;
     SDL_Texture *img = IMG_LoadTexture(gc.renderer, path.c_str());
     SDL_Rect rect;
-    rect.x = x; rect.y = y;
+    this->get_point(&rect.x, &rect.y);
     SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
     SDL_RenderCopy(gc.renderer, img, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
+}
+
+void InstImg::get_point(int *x, int *y)
+{
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 InstImg::InstImg()
@@ -36,8 +42,8 @@ bool InstImg::explain(vector<string> prms, Instruction *&inst)
         return false;
     }
     InstImg *res = new InstImg();
-    res->x = boost::lexical_cast<int>(prms[1]);
-    res->y = boost::lexical_cast<int>(prms[2]);
+    res->x = prms[1];
+    res->y = prms[2];
     res->path = prms[3];
     inst = res;
     return true;
