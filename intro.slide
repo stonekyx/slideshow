@@ -1,5 +1,17 @@
 newpage
+font "georgia.ttf"
+fontsize 100
+point rel 0 0 id=center
+text x5:center y5:center "Slideshow" id=title
+point x:center Y:title id=title_bottom
 font "simsun.ttc"
-fontsize 72
-text 0 70 "中文" id=123
-rect y:123 x:123 50 50
+fontsize 40
+text x1:title_bottom y1:title_bottom "利用" id=subtitle_seg1
+font "georgia.ttf"
+text X:subtitle_seg1 y:subtitle_seg1 "SDL" id=subtitle_seg2
+font "simsun.ttc"
+text X:subtitle_seg2 y:subtitle_seg2 "的幻灯片放映程序"
+
+newpage
+font "georgia.ttf"
+text x5:center y5:center "Thanks!"

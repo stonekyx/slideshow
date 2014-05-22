@@ -20,19 +20,30 @@ int InstText::run(GContext &gc)
     TTF_Font *font = TTF_OpenFont(gc.font_family.c_str(), gc.font_size);
     SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, text.c_str(), gc.fg, gc.bg);
     SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
+    SDL_QueryTexture(text_texture, NULL, NULL,
+            &this->w, &this->h);
     int x, y;
     this->get_point(&x, &y);
     SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
+    SDL_DestroyTexture(text_texture);
+    SDL_FreeSurface(text_sur);
+    TTF_CloseFont(font);
     finished = true;
     return -1;
 }
 
 void InstText::get_point(int *x, int *y)
 {
-    *x = Instruction::parse_coor(this->x);
-    *y = Instruction::parse_coor(this->y);
+    *x = this->parse_coor(this->x);
+    *y = this->parse_coor(this->y);
+}
+
+void InstText::get_size(int *w, int *h)
+{
+    *w = this->w;
+    *h = this->h;
 }
 
 InstText::InstText() : finished(false)
@@ -48,6 +59,10 @@ bool InstText::explain(vector<string> prms, Instruction *&inst)
     res->x = prms[1];
     res->y = prms[2];
     res->text = prms[3];
+    unsigned int pos;
+    while((pos=res->text.find("\\n"))!=res->text.npos) {
+        res->text.replace(pos, 2, "\n");
+    }
     inst = res;
     return true;
 }

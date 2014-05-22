@@ -27,7 +27,7 @@ Slide::Slide()
 
 bool Slide::explain(vector<string> prms, Instruction *&inst)
 {
-    if(prms[0].compare("newpage")==0) {
+    if(prms.size()>=1 && prms[0].compare("newpage")==0) {
         inst = new Slide();
         return true;
     }

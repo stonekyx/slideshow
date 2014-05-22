@@ -8,13 +8,11 @@ main_LDADD = -ldl $(SDL2_LIBS)
 main_LDFLAGS = -rdynamic
 AM_CPPFLAGS = $(SDL2_CFLAGS)
 
-inst_plugins_cxxflags = -rdynamic
 inst_plugins_ldflags = -module -shared -avoid-version -export-dynamic
 
 pkglib_LTLIBRARIES = instruction.la
 
 instruction_la_SOURCES = instruction.cpp instruction.h
-instruction_la_CXXFLAGS = $(inst_plugins_cxxflags)
 instruction_la_LDFLAGS = $(inst_plugins_ldflags)
 
 pkglib_LTLIBRARIES += inst_plugins/slide.la
@@ -50,6 +48,11 @@ pkglib_LTLIBRARIES += inst_plugins/gcontextchange.la
 
 inst_plugins_gcontextchange_la_SOURCES = gcontextchange.cpp gcontextchange.h
 inst_plugins_gcontextchange_la_LDFLAGS = $(inst_plugins_ldflags)
+
+pkglib_LTLIBRARIES += inst_plugins/point.la
+
+inst_plugins_point_la_SOURCES = point.cpp point.h
+inst_plugins_point_la_LDFLAGS = $(inst_plugins_ldflags)
 
 pkglib_LTLIBRARIES += inst_plugins/scriptfile.la
 

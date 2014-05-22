@@ -22,7 +22,7 @@ EndSlide::EndSlide()
 
 bool EndSlide::explain(vector<string> prms, Instruction *&inst)
 {
-    if(prms[0].compare("endpage")) {
+    if(prms.size()<1 || prms[0].compare("endpage")) {
         return false;
     }
     EndSlide *res = new EndSlide();

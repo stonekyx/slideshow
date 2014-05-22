@@ -29,8 +29,14 @@ int InstRect::run(GContext &gc)
 
 void InstRect::get_point(int *x, int *y)
 {
-    *x = Instruction::parse_coor(this->x);
-    *y = Instruction::parse_coor(this->y);
+    *x = this->parse_coor(this->x);
+    *y = this->parse_coor(this->y);
+}
+
+void InstRect::get_size(int *w, int *h)
+{
+    *w = this->parse_coor(this->w);
+    *h = this->parse_coor(this->h);
 }
 
 InstRect::InstRect()
@@ -40,7 +46,7 @@ InstRect::InstRect()
 
 bool InstRect::explain(vector<string> prms, Instruction *&inst)
 {
-    if(prms[0].compare("rect")) {
+    if(prms.size()<5 || prms[0].compare("rect")) {
         return false;
     }
     InstRect *res = new InstRect();

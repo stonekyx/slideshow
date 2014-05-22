@@ -24,12 +24,15 @@ namespace Slideshow {
             static std::map<std::string, Instruction *> inst_by_id;
         protected:
             Instruction() {}
-            static int parse_coor(const std::string &);
+            int parse_coor(const std::string &);
         public:
             virtual ~Instruction() {};
             virtual int run(GContext &)=0;
             virtual void get_point(int *x, int *y) {
                 *x = *y = 0;
+            }
+            virtual void get_size(int *w, int *h) {
+                *w = *h = 0;
             }
             static bool explain(std::vector<std::string>, Instruction *&);
     };

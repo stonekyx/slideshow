@@ -21,14 +21,23 @@ int InstImg::run(GContext &gc)
     SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
     SDL_RenderCopy(gc.renderer, img, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
+    SDL_DestroyTexture(img);
     finished = true;
     return -1;
 }
 
 void InstImg::get_point(int *x, int *y)
 {
-    *x = Instruction::parse_coor(this->x);
-    *y = Instruction::parse_coor(this->y);
+    *x = this->parse_coor(this->x);
+    *y = this->parse_coor(this->y);
+}
+
+void InstImg::get_size(int *w, int *h)
+{
+    SDL_Surface *img = IMG_Load(this->path.c_str());
+    *w = img->w;
+    *h = img->h;
+    SDL_FreeSurface(img);
 }
 
 InstImg::InstImg()
@@ -38,7 +47,7 @@ InstImg::InstImg()
 
 bool InstImg::explain(vector<string> prms, Instruction *&inst)
 {
-    if(prms[0].compare("img")) {
+    if(prms.size()<4 || prms[0].compare("img")) {
         return false;
     }
     InstImg *res = new InstImg();

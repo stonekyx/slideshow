@@ -42,7 +42,8 @@ bool ScriptFile::get_inst(vector<Instruction*> &res)
         Instruction *inst;
         if(!this->inst_abs_explain(prms, inst)) {
             cerr<<"Unable to explain line "<<linecnt<<endl;
-            return false;
+            prms.clear();
+            continue;
         }
         res.push_back(inst);
         prms.clear();

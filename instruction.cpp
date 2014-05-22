@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cctype>
 
 #include <dlfcn.h>
 #include <dirent.h>
@@ -70,16 +71,46 @@ string *Instruction::prms_pp(vector<string> &prms)
 
 int Instruction::parse_coor(const string &id)
 {
-    if(id.find("x:")!=0 && id.find("y:")!=0) {
+    if((tolower(id[0])!='x' && tolower(id[0])!='y') ||
+            (id[1]!=':' && id[2]!=':')) {
         return boost::lexical_cast<int>(id);
     }
-    Instruction *inst = inst_by_id[id.substr(2)];
+    Instruction *inst;
+    if(id[1]==':') {
+        inst = inst_by_id[id.substr(2)];
+    } else {
+        inst = inst_by_id[id.substr(3)];
+    }
     if(inst==NULL) {
         return -1;
     }
     int x, y;
     inst->get_point(&x, &y);
-    if(id.find("x:")==0) {
+    if(isupper(id[0])) {
+        int w, h;
+        inst->get_size(&w, &h);
+        x+=w; y+=h;
+    }
+    if(id[1]!=':') {
+        //"x?:" form
+        int w, h;
+        this->get_size(&w, &h);
+        int type = id[1]-'0';
+        switch(type) {
+            case 1: //top left
+                break;
+            case 2: //top right
+                x -= w; break;
+            case 3: //bottom left
+                y -= h; break;
+            case 4: //bottom right
+                x -= w; y -= h; break;
+            case 5: //middle
+                x -= w/2; y -= h/2; break;
+            default: ;
+        }
+    }
+    if(tolower(id[0])=='x') {
         return x;
     } else {
         return y;

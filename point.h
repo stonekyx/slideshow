@@ -1,24 +1,22 @@
-#ifndef IMAGE_H
+#ifndef POINT_H
 
-#define IMAGE_H
+#define POINT_H
 
 #include <vector>
 #include <string>
 
 #include "instruction.h"
+#include "gcontext.h"
 
 namespace Slideshow {
-    class InstImg : public Instruction {
+    class InstPoint : public Instruction {
         private:
             std::string x, y;
-            std::string path;
-            bool finished;
+            bool relative;
         protected:
-            InstImg();
         public:
             int run(GContext &);
             void get_point(int *, int *);
-            void get_size(int *, int *);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }
