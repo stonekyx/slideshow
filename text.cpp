@@ -59,10 +59,6 @@ bool InstText::explain(vector<string> prms, Instruction *&inst)
     res->x = prms[1];
     res->y = prms[2];
     res->text = prms[3];
-    unsigned int pos;
-    while((pos=res->text.find("\\n"))!=res->text.npos) {
-        res->text.replace(pos, 2, "\n");
-    }
     inst = res;
     return true;
 }

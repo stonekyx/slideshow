@@ -54,6 +54,13 @@ pkglib_LTLIBRARIES += inst_plugins/point.la
 inst_plugins_point_la_SOURCES = point.cpp point.h
 inst_plugins_point_la_LDFLAGS = $(inst_plugins_ldflags)
 
+pkglib_LTLIBRARIES += inst_plugins/mtext.la
+
+inst_plugins_mtext_la_SOURCES = mtext.cpp mtext.h
+inst_plugins_mtext_la_LDFLAGS = $(inst_plugins_ldflags)
+inst_plugins_mtext_la_CXXFLAGS = $(SDL2_ttf_CFLAGS)
+inst_plugins_mtext_la_LIBADD = $(SDL2_ttf_LIBS)
+
 pkglib_LTLIBRARIES += inst_plugins/scriptfile.la
 
 inst_plugins_scriptfile_la_SOURCES = scriptfile.cpp scriptfile.h

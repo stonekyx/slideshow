@@ -4,14 +4,55 @@ fontsize 100
 point rel 0 0 id=center
 text x5:center y5:center "Slideshow" id=title
 point x:center Y:title id=title_bottom
-font "simsun.ttc"
 fontsize 40
-text x1:title_bottom y1:title_bottom "利用" id=subtitle_seg1
-font "georgia.ttf"
-text X:subtitle_seg1 y:subtitle_seg1 "SDL" id=subtitle_seg2
-font "simsun.ttc"
-text X:subtitle_seg2 y:subtitle_seg2 "的幻灯片放映程序"
+mtext x1:title_bottom y1:title_bottom simsun.ttc:40 "利用" georgia.ttf SDL simsun.ttc 的幻灯片放映程序
+
+newpage
+fontsize 50
+font times.ttf
+text 50 30 "Features" id=features-title
+rect x:features-title Y:features-title 500 1
+mtext x5:center y5:center 微软雅黑.ttf "・非所见即所得" lb 微软雅黑.ttf "・用脚本控制幻灯片播放" lb 微软雅黑.ttf "・语句间的相互引用"
+
+newpage
+fontsize 50
+font times.ttf
+text 50 30 "Example script" id=example-title
+rect x:example-title Y:example-title 500 1
+
+fontsize 24
+font "Inconsolata+for+Powerline.otf"
+mtext x5:center y5:center \
+          "" "newpage" lb \
+          "" "font georgia.ttf" lb \
+          "" "fontsize 100" lb \
+          "" "point rel 0 0 id=center" lb \
+          "" "text x5:center y5:center Slideshow id=title" lb \
+          "" "point x:center Y:title id=title_bottom" lb \
+          "" "fontsize 40" lb \
+          "" "mtext x1:title_bottom y1:title_bottom \\" lb \
+          "" "        simsun.ttc:40 \"" \
+          "simsun.ttc" "利用" \
+          "" "\" georgia.ttf SDL \\" lb \
+          "" "        simsun.ttc " \
+          "simsun.ttc" "的幻灯片放映程序"
+
+newpage
+fontsize 50
+font times.ttf
+text 50 30 "Design" id=design-title
+rect x:design-title Y:design-title 500 1
+img x5:center y5:center /tmp/inherit.png
+
+newpage
+fontsize 50
+font times.ttf
+text 50 30 "Design patterns" id=dp-title
+rect x:dp-title Y:dp-title 500 1
+mtext x5:center y5:center \
+          "" "TODO: design patterns"
 
 newpage
 font "georgia.ttf"
+fontsize 72
 text x5:center y5:center "Thanks!"

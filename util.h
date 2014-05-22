@@ -5,6 +5,8 @@
 
 #define UTIL_H
 
+#include <string>
+
 #include <SDL.h>
 
 #include "gcontext.h"
@@ -15,6 +17,8 @@ namespace Slideshow {
     //or a SDL_Keycode received when argument is SDLK_UNKNOWN.
     int wait_key(SDL_Keycode);
     SDL_Rect get_rect_from_pos(int x, int y, SDL_Texture *);
+    void get_full_fontpath(std::string &);
+    void reduce_spaces(std::string &);
 }
 
 #endif

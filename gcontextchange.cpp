@@ -4,6 +4,7 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include "util.h"
 #include "gcontextchange.h"
 
 using namespace Slideshow;
@@ -30,24 +31,7 @@ int InstGContextFontSize::run(GContext &gc)
 int InstGContextFontFamily::run(GContext &gc)
 {
     gc.font_family = this->font_family;
-    while(gc.font_family.find('/')==gc.font_family.npos) {
-        const char *fontdir = getenv("FONTDIR");
-        if(fontdir) {
-            string dir(fontdir);
-            dir+="/";
-            dir+=gc.font_family;
-            gc.font_family = dir;
-            break;
-        }
-        const char *home = getenv("HOME");
-        if(home) {
-            string dir(home);
-            dir+="/.fonts/";
-            dir+=gc.font_family;
-            gc.font_family = dir;
-            break;
-        }
-    }
+    get_full_fontpath(gc.font_family);
     return -2;
 }
 

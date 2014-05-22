@@ -7,6 +7,7 @@
 
 #include <boost/tokenizer.hpp>
 
+#include "util.h"
 #include "scriptfile.h"
 
 using namespace Slideshow;
@@ -19,6 +20,15 @@ bool ScriptFile::read_line(vector<string> &res)
     if(!std::getline(_file, s)) {
         return false;
     }
+    while(s[s.length()-1]=='\\') {
+        string cont;
+        if(!std::getline(_file, cont)) {
+            break;
+        }
+        s.pop_back();
+        s+=cont;
+    }
+    reduce_spaces(s);
     escaped_list_separator<char> sep("\\", " \t", "\"");
     tokenizer<escaped_list_separator<char> > tok(s, sep);
     for(tokenizer<escaped_list_separator<char> >::iterator it = tok.begin();

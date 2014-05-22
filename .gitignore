@@ -1,6 +1,7 @@
 .*
 *~
 *.cache
+doc
 Makefile
 tags
 cscope.out
