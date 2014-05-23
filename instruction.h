@@ -28,11 +28,17 @@ namespace Slideshow {
         public:
             virtual ~Instruction() {};
             virtual int run(GContext &)=0;
+            virtual bool runback(GContext &) {
+                return false;
+            }
             virtual void get_point(int *x, int *y) {
                 *x = *y = 0;
             }
             virtual void get_size(int *w, int *h) {
                 *w = *h = 0;
+            }
+            virtual bool will_clear_screen() {
+                return false;
             }
             static bool explain(std::vector<std::string>, Instruction *&);
     };

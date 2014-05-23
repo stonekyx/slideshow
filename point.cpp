@@ -7,17 +7,18 @@ using namespace std;
 
 int InstPoint::run(GContext &gc)
 {
+    int x, y;
+    this->get_point(&x, &y);
     if(this->relative) {
         //parse relative coordinates to absolute plain numbers.
-        int x, y;
-        this->get_point(&x, &y);
         int win_w, win_h;
         SDL_GetWindowSize(gc.window, &win_w, &win_h);
         x += win_w/2;
         y += win_h/2;
-        this->x = boost::lexical_cast<string>(x);
-        this->y = boost::lexical_cast<string>(y);
+        this->relative = false;
     }
+    this->x = boost::lexical_cast<string>(x);
+    this->y = boost::lexical_cast<string>(y);
     return -2;
 }
 

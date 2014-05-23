@@ -18,12 +18,20 @@ int InstImg::run(GContext &gc)
     SDL_Texture *img = IMG_LoadTexture(gc.renderer, path.c_str());
     SDL_Rect rect;
     this->get_point(&rect.x, &rect.y);
+    this->x = boost::lexical_cast<string>(rect.x);
+    this->y = boost::lexical_cast<string>(rect.y);
     SDL_QueryTexture(img, NULL, NULL, &rect.w, &rect.h);
     SDL_RenderCopy(gc.renderer, img, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
     SDL_DestroyTexture(img);
     finished = true;
     return -1;
+}
+
+bool InstImg::runback(GContext &gc)
+{
+    finished = false;
+    return false;
 }
 
 void InstImg::get_point(int *x, int *y)

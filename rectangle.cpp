@@ -19,12 +19,22 @@ int InstRect::run(GContext &gc)
     this->get_point(&rect.x, &rect.y);
     rect.w = Instruction::parse_coor(this->w);
     rect.h = Instruction::parse_coor(this->h);
+    this->x = boost::lexical_cast<string>(rect.x);
+    this->y = boost::lexical_cast<string>(rect.y);
+    this->w = boost::lexical_cast<string>(rect.w);
+    this->h = boost::lexical_cast<string>(rect.h);
     SDL_SetRenderDrawColor(gc.renderer,
             gc.fg.r, gc.fg.g, gc.fg.b, gc.fg.a);
     SDL_RenderFillRect(gc.renderer, &rect);
     SDL_RenderPresent(gc.renderer);
     finished = true;
     return -1;
+}
+
+bool InstRect::runback(GContext &gc)
+{
+    finished = false;
+    return false;
 }
 
 void InstRect::get_point(int *x, int *y)

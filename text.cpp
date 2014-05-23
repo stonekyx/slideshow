@@ -24,6 +24,8 @@ int InstText::run(GContext &gc)
             &this->w, &this->h);
     int x, y;
     this->get_point(&x, &y);
+    this->x = boost::lexical_cast<string>(x);
+    this->y = boost::lexical_cast<string>(y);
     SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
@@ -32,6 +34,12 @@ int InstText::run(GContext &gc)
     TTF_CloseFont(font);
     finished = true;
     return -1;
+}
+
+bool InstText::runback(GContext &gc)
+{
+    finished = false;
+    return false;
 }
 
 void InstText::get_point(int *x, int *y)

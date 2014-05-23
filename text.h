@@ -18,6 +18,7 @@ namespace Slideshow {
             InstText();
         public:
             int run(GContext &);
+            bool runback(GContext &);
             void get_point(int *, int *);
             void get_size(int *, int *);
             static bool explain(std::vector<std::string>, Instruction *&);

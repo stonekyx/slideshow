@@ -23,6 +23,8 @@ namespace Slideshow {
             ScriptFile(const char *);
             ~ScriptFile();
             int run(GContext &);
+            bool runback(GContext &);
+            void repaint_to(std::vector<Instruction*>::iterator, GContext &);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }

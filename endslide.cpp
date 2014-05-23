@@ -15,6 +15,12 @@ int EndSlide::run(GContext &gc)
     }
 }
 
+bool EndSlide::runback(GContext &gc)
+{
+    finished = false;
+    return false;
+}
+
 EndSlide::EndSlide()
 {
     finished = false;

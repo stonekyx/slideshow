@@ -20,6 +20,17 @@ int Slide::run(GContext &gc)
     return -1;
 }
 
+bool Slide::runback(GContext &gc)
+{
+    finished = false;
+    return false;
+}
+
+bool Slide::will_clear_screen()
+{
+    return true;
+}
+
 Slide::Slide()
 {
     finished = false;

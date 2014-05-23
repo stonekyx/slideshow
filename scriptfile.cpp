@@ -100,6 +100,28 @@ int ScriptFile::run(GContext &gc)
     return delay;
 }
 
+bool ScriptFile::runback(GContext &gc)
+{
+    if(!(*inst_it)->runback(gc)) {
+        if(inst_it==inst.begin()) {
+            return false;
+        }
+        inst_it--;
+        this->repaint_to(inst_it, gc);
+    }
+    return true;
+}
+
+void ScriptFile::repaint_to(vector<Instruction*>::iterator target, GContext &gc)
+{
+    vector<Instruction*>::iterator it;
+    for(it = target; !(*it)->will_clear_screen(); it--) {
+    }
+    for(; it!=target+1; it++) {
+        while((*it)->run(gc)!=-2);
+    }
+}
+
 bool ScriptFile::explain(vector<string> prms, Instruction *&inst)
 {
     if(prms.size()<2 || prms[0].compare("include.script")) {

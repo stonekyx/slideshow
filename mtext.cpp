@@ -76,6 +76,12 @@ int InstMText::run(GContext &gc)
     return -1;
 }
 
+bool InstMText::runback(GContext &gc)
+{
+    finished = false;
+    return false;
+}
+
 void InstMText::get_point(int *x, int *y)
 {
     *x = this->parse_coor(this->x);

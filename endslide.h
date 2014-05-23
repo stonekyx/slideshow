@@ -15,6 +15,7 @@ namespace Slideshow {
             EndSlide();
         public:
             int run(GContext &);
+            bool runback(GContext &);
             static bool explain(std::vector<std::string>, Instruction *&);
     };
 }
