@@ -5,6 +5,8 @@
 
 #include <SDL.h>
 
+#include <GL/gl.h>
+
 #include "file.h"
 #include "util.h"
 #include "gcontext.h"
@@ -26,30 +28,75 @@ class PlayControl::Private {
 void PlayControl::Private::init_sdl(int w, int h)
 {
     SDL_Init(SDL_INIT_VIDEO);
+    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
+    gc.has_gl = true;
     if(w>0 && h>0) {
-        SDL_CreateWindowAndRenderer(w, h, SDL_WINDOW_SHOWN,
-                &gc.window, &gc.renderer);
+        gc.window = SDL_CreateWindow("Slideshow",
+                SDL_WINDOWPOS_CENTERED,
+                SDL_WINDOWPOS_CENTERED,
+                w, h, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+        if(gc.window==NULL) {
+            gc.window = SDL_CreateWindow("Slideshow",
+                    SDL_WINDOWPOS_CENTERED,
+                    SDL_WINDOWPOS_CENTERED,
+                    w, h, SDL_WINDOW_SHOWN);
+            gc.has_gl = false;
+        }
     } else {
-        SDL_CreateWindowAndRenderer(0, 0,
-                SDL_WINDOW_FULLSCREEN_DESKTOP,
-                &gc.window, &gc.renderer);
+        gc.window = SDL_CreateWindow("Slideshow",
+                SDL_WINDOWPOS_CENTERED,
+                SDL_WINDOWPOS_CENTERED,
+                w, h,
+                SDL_WINDOW_FULLSCREEN_DESKTOP |
+                SDL_WINDOW_OPENGL);
+        if(gc.window==NULL) {
+            gc.window = SDL_CreateWindow("Slideshow",
+                    SDL_WINDOWPOS_CENTERED,
+                    SDL_WINDOWPOS_CENTERED,
+                    w, h, SDL_WINDOW_FULLSCREEN_DESKTOP);
+            gc.has_gl = false;
+        }
     }
-    if(gc.window==NULL || gc.renderer==NULL) {
+    if(gc.window==NULL) {
+        throw new exception();
+    }
+    gc.renderer = SDL_CreateRenderer(gc.window, -1,
+            SDL_RENDERER_ACCELERATED |
+            SDL_RENDERER_TARGETTEXTURE |
+            SDL_RENDERER_PRESENTVSYNC
+            );
+    if(gc.renderer==NULL) {
+        gc.renderer = SDL_CreateRenderer(gc.window, -1, 0);
+        gc.has_gl = false;
+    }
+    if(gc.renderer==NULL) {
         cerr<<"Failed creating SDL window"<<endl;
         throw new exception();
     }
-    SDL_SetWindowTitle(gc.window, "Slideshow");
 
+    SDL_Delay(100);
     gc.fg.a = 255; gc.fg.r = gc.fg.g = gc.fg.b = 0;
     gc.bg.a = 255; gc.bg.r = gc.bg.g = gc.bg.b = 255;
     SDL_SetRenderDrawColor(gc.renderer,
             gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
     SDL_RenderClear(gc.renderer);
     SDL_RenderPresent(gc.renderer);
+
+    gc.has_gl = false;
+    if(gc.has_gl) {
+        cout<<"Using OpenGL"<<endl;
+        gc.glcontext = SDL_GL_CreateContext(gc.window);
+        glClearColor(0,0,0,1);
+        glClear(GL_COLOR_BUFFER_BIT);
+        SDL_GL_SwapWindow(gc.window);
+    }
 }
 
 void PlayControl::Private::deinit_sdl()
 {
+    if(gc.has_gl) {
+        SDL_GL_DeleteContext(gc.glcontext);
+    }
     SDL_DestroyRenderer(gc.renderer);
     SDL_DestroyWindow(gc.window);
     SDL_Quit();

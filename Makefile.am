@@ -4,8 +4,9 @@ bin_PROGRAMS = main
 
 main_SOURCES = main.cpp playctl.h playctl.cpp util.h util.cpp
 
-main_LDADD = -ldl $(SDL2_LIBS)
+main_LDADD = -ldl $(SDL2_LIBS) $(OpenGL_LIBS)
 main_LDFLAGS = -rdynamic
+main_CXXFLAGS = $(SDL2_CFLAGS) $(OpenGL_CFLAGS)
 AM_CPPFLAGS = $(SDL2_CFLAGS)
 
 inst_plugins_ldflags = -module -shared -avoid-version -export-dynamic
@@ -60,6 +61,13 @@ inst_plugins_mtext_la_SOURCES = mtext.cpp mtext.h
 inst_plugins_mtext_la_LDFLAGS = $(inst_plugins_ldflags)
 inst_plugins_mtext_la_CXXFLAGS = $(SDL2_ttf_CFLAGS)
 inst_plugins_mtext_la_LIBADD = $(SDL2_ttf_LIBS)
+
+pkglib_LTLIBRARIES += inst_plugins/ani_line.la
+
+inst_plugins_ani_line_la_SOURCES = ani_line.cpp ani_line.h
+inst_plugins_ani_line_la_LDFLAGS = $(inst_plugins_ldflags)
+inst_plugins_ani_line_la_CXXFLAGS = $(OpenGL_CFLAGS)
+inst_plugins_ani_line_la_LIBADD = $(OpenGL_LIBS)
 
 pkglib_LTLIBRARIES += inst_plugins/scriptfile.la
 

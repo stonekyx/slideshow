@@ -8,6 +8,7 @@
 * SDL2 ~~（目前还没实现绘图，所以暂时没有也没关系）~~
 * SDL2_ttf
 * SDL2_image
+* OpenGL
 * boost
 
 在大多数发行版上应该都能在软件包管理器里找到，比如Ubuntu的apt-get。

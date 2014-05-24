@@ -21,6 +21,8 @@ namespace Slideshow {
             int font_size;
             SDL_Window *window;
             SDL_Renderer *renderer;
+            SDL_GLContext glcontext;
+            bool has_gl;
     };
 }
 

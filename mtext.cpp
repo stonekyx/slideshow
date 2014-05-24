@@ -63,7 +63,6 @@ int InstMText::run(GContext &gc)
         SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
         SDL_Rect rect = get_rect_from_pos(cx, cy, text_texture);
         SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
-        SDL_RenderPresent(gc.renderer);
         SDL_DestroyTexture(text_texture);
         SDL_FreeSurface(text_sur);
         TTF_CloseFont(font);
@@ -72,6 +71,7 @@ int InstMText::run(GContext &gc)
             line_height = rect.h;
         }
     }
+    SDL_RenderPresent(gc.renderer);
     this->finished = true;
     return -1;
 }
