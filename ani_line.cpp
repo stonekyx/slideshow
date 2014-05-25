@@ -1,3 +1,4 @@
+#include <iostream>
 #include <exception>
 #include <cstdlib>
 
@@ -17,6 +18,7 @@ class InstAniLine::Bresenham {
     public:
         Bresenham(int x1, int y1, int x2, int y2);
         bool next(int *, int *);
+        bool next(int times, int *, int *);
         bool hasnext();
 };
 
@@ -97,12 +99,60 @@ bool InstAniLine::Bresenham::next(int *x, int *y)
     return false;
 }
 
+bool InstAniLine::Bresenham::next(int times, int *x, int *y)
+{
+    while(times && this->next(x,y)) {
+        times--;
+    }
+    if(times) return false;
+    return true;
+}
+
 bool InstAniLine::Bresenham::hasnext()
 {
     if((dx>dy && i<=dx) || (dx<=dy && i<=dy)) {
         return true;
     }
     return false;
+}
+
+SDL_Texture *InstAniLine::create_window_snapshot(GContext &gc)
+{
+    void *pixels;
+    int pitch;
+    int win_w, win_h;
+    SDL_GetWindowSize(gc.window, &win_w, &win_h);
+
+    SDL_Texture *win_texture =
+        SDL_CreateTexture(gc.renderer,
+                SDL_GetWindowPixelFormat(gc.window),
+                SDL_TEXTUREACCESS_STREAMING,
+                win_w, win_h);
+    if(SDL_LockTexture(win_texture, NULL, &pixels, &pitch)) {
+        cerr<<SDL_GetError()<<endl;
+        throw new exception();
+    }
+    SDL_Surface *win_surface = SDL_GetWindowSurface(gc.window);
+    if(win_surface==NULL) {
+        SDL_GL_SwapWindow(gc.window);
+        glReadPixels(0, 0, win_w, win_h, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        unsigned char *wp =
+            (unsigned char*)pixels; //just alias
+        unsigned char *swap = new unsigned char[pitch];
+        for(int i=0; i<win_h/2; i++) {
+            memmove(swap, wp+i*pitch, pitch);
+            memmove(wp+i*pitch, wp+(win_h-i-1)*pitch,
+                    pitch);
+            memmove(wp+(win_h-i-1)*pitch, swap, pitch);
+        }
+        delete[] swap;
+    } else {
+        memcpy(pixels, win_surface->pixels,
+                win_surface->pitch*win_surface->h);
+    }
+    SDL_UnlockTexture(win_texture);
+    pixels = NULL;
+    return win_texture;
 }
 
 //---------------public interface---------------------
@@ -121,6 +171,11 @@ int InstAniLine::run(GContext &gc)
                 SDL_GetWindowPixelFormat(gc.window),
                 SDL_TEXTUREACCESS_TARGET,
                 win_w, win_h);
+    if(subinst_texture==NULL) {
+        cerr<<SDL_GetError()<<endl;
+        throw new exception();
+    }
+
     SDL_Texture *orig_target = SDL_GetRenderTarget(gc.renderer);
     if(SDL_SetRenderTarget(gc.renderer, subinst_texture)) {
         throw new exception();
@@ -131,34 +186,7 @@ int InstAniLine::run(GContext &gc)
         throw new exception();
     }
 
-    SDL_Texture *win_texture =
-        SDL_CreateTexture(gc.renderer,
-                SDL_GetWindowPixelFormat(gc.window),
-                SDL_TEXTUREACCESS_STREAMING,
-                win_w, win_h);
-    void *win_pixels;
-    int win_pitch;
-    SDL_LockTexture(win_texture, NULL, &win_pixels, &win_pitch);
-    SDL_Surface *win_surface = SDL_GetWindowSurface(gc.window);
-    if(win_surface==NULL) {
-        SDL_GL_SwapWindow(gc.window);
-        glReadPixels(0, 0, win_w, win_h, GL_RGBA, GL_UNSIGNED_BYTE, win_pixels);
-        unsigned char *wp =
-            (unsigned char*)win_pixels; //just alias
-        unsigned char *swap = new unsigned char[win_w*4];
-        for(int i=0; i<win_h/2; i++) {
-            memmove(swap, wp+i*win_w*4, win_w*4);
-            memmove(wp+i*win_w*4, wp+(win_h-i-1)*win_w*4,
-                    win_w*4);
-            memmove(wp+(win_h-i-1)*win_w*4, swap, win_w*4);
-        }
-        delete[] swap;
-    } else {
-        memcpy(win_pixels, win_surface->pixels,
-                win_surface->pitch*win_surface->h);
-    }
-    SDL_UnlockTexture(win_texture);
-    win_pixels = NULL;
+    SDL_Texture *win_texture = create_window_snapshot(gc);
 
     SDL_Rect subrect;
     subinst->get_point(&subrect.x, &subrect.y);
@@ -174,22 +202,24 @@ int InstAniLine::run(GContext &gc)
     SDL_SetRenderDrawColor(gc.renderer,
             gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
     SDL_SetTextureBlendMode(subinst_texture, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureBlendMode(win_texture, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureBlendMode(win_texture, SDL_BLENDMODE_NONE);
     for(Bresenham b(tarrect.x, tarrect.y, tx, ty);
-            b.next(&tarrect.x, &tarrect.y) &&
-            b.next(&tarrect.x, &tarrect.y) &&
-            b.next(&tarrect.x, &tarrect.y); ) {
+            b.next(3, &tarrect.x, &tarrect.y); ) {
         SDL_RenderCopy(gc.renderer, subinst_texture,
                 &subrect, &tarrect);
         SDL_RenderPresent(gc.renderer);
         //SDL_Delay(10);
         SDL_RenderCopy(gc.renderer, win_texture, &tarrect, &tarrect);
     }
+    //last render, onto original target.
     if(SDL_SetRenderTarget(gc.renderer, orig_target)) {
         throw new exception();
     }
+    SDL_SetTextureBlendMode(subinst_texture, SDL_BLENDMODE_NONE);
     SDL_RenderCopy(gc.renderer, subinst_texture, &subrect, &tarrect);
-    SDL_RenderPresent(gc.renderer);
+    if(orig_target==NULL) {
+        SDL_RenderPresent(gc.renderer);
+    }
 
     SDL_DestroyTexture(subinst_texture);
     SDL_DestroyTexture(win_texture);

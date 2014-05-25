@@ -60,8 +60,10 @@ int InstMText::run(GContext &gc)
         }
         TTF_Font *font = TTF_OpenFont(it->font.c_str(), it->font_size);
         SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, it->text.c_str(), gc.fg, gc.bg);
+        SDL_SetColorKey(text_sur, SDL_TRUE, SDL_MapRGB(text_sur->format, 255, 255, 255));
         SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
         SDL_Rect rect = get_rect_from_pos(cx, cy, text_texture);
+        SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_NONE);
         SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
         SDL_DestroyTexture(text_texture);
         SDL_FreeSurface(text_sur);

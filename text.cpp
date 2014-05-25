@@ -19,6 +19,7 @@ int InstText::run(GContext &gc)
     cout<<"Got text"<<endl;
     TTF_Font *font = TTF_OpenFont(gc.font_family.c_str(), gc.font_size);
     SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, text.c_str(), gc.fg, gc.bg);
+    SDL_SetColorKey(text_sur, SDL_TRUE, SDL_MapRGB(text_sur->format, 255, 255, 255));
     SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
     SDL_QueryTexture(text_texture, NULL, NULL,
             &this->w, &this->h);
@@ -27,6 +28,7 @@ int InstText::run(GContext &gc)
     this->x = boost::lexical_cast<string>(x);
     this->y = boost::lexical_cast<string>(y);
     SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
+    SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_NONE);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
     SDL_DestroyTexture(text_texture);

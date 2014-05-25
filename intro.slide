@@ -59,7 +59,7 @@ text 50 30 "End" id=end-title
 rect x:end-title Y:end-title 500 1
 font "georgia.ttf"
 fontsize 72
-aniline x5:center y5:center aniline 0 100 text x5:center y5:center "Thanks!"
+aniline x5:center y5:center aniline 0 0 text x5:center y5:center "Thanks!"
 
 point rel x:center y:center id=bottom-right
 text x4:bottom-right y4:bottom-right "Stone"

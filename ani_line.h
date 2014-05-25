@@ -16,6 +16,7 @@ namespace Slideshow {
             SDL_Rect tarrect;
             bool finished;
             class Bresenham;
+            SDL_Texture *create_window_snapshot(GContext &);
         protected:
         public:
             int run(GContext &);
