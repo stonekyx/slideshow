@@ -10,7 +10,7 @@ namespace Slideshow {
         protected:
         public:
             ~PlayControl();
-            PlayControl(const char *file_plugin, const char *file, int w, int h);
+            PlayControl(const char *file_plugin, const char *file, int w, int h, bool disable_gl=false);
             void play();
     };
 }

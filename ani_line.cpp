@@ -182,7 +182,7 @@ int InstAniLine::run(GContext &gc)
         SDL_RenderCopy(gc.renderer, subinst_texture,
                 &subrect, &tarrect);
         SDL_RenderPresent(gc.renderer);
-        SDL_Delay(10);
+        //SDL_Delay(10);
         SDL_RenderCopy(gc.renderer, win_texture, &tarrect, &tarrect);
     }
     if(SDL_SetRenderTarget(gc.renderer, orig_target)) {
