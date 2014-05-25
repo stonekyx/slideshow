@@ -1,17 +1,17 @@
-newpage
+newpage delay=1000
 font "georgia.ttf"
 fontsize 100
 point rel 0 0 id=center
-text x5:center y5:center "Slideshow" id=title
+text x5:center y5:center "Slideshow" id=title delay=500
 point x:center Y:title id=title_bottom
 fontsize 40
-mtext x1:title_bottom y1:title_bottom simsun.ttc:40 "利用" georgia.ttf SDL simsun.ttc 的幻灯片放映程序
+mtext x1:title_bottom y1:title_bottom simsun.ttc:40 "利用" georgia.ttf SDL simsun.ttc 的幻灯片放映程序 delay=5000
 
-newpage
+newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "Features" id=features-title
-rect x:features-title Y:features-title 500 1
+text 50 30 "Features" id=features-title delay=0
+rect x:features-title Y:features-title 500 1 delay=1000
 mtext x5:center y5:center 微软雅黑.ttf "・非所见即所得" lb 微软雅黑.ttf "・用脚本控制幻灯片播放" lb 微软雅黑.ttf "・语句间的相互引用"
 
 newpage

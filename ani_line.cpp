@@ -224,7 +224,7 @@ int InstAniLine::run(GContext &gc)
     SDL_DestroyTexture(subinst_texture);
     SDL_DestroyTexture(win_texture);
     finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool InstAniLine::runback(GContext &)

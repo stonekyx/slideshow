@@ -28,7 +28,7 @@ int InstRect::run(GContext &gc)
     SDL_RenderFillRect(gc.renderer, &rect);
     SDL_RenderPresent(gc.renderer);
     finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool InstRect::runback(GContext &gc)

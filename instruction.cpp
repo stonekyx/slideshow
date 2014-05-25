@@ -50,9 +50,10 @@ void Instruction::init_instlist()
 
 map<string, Instruction *> Instruction::inst_by_id;
 
-string *Instruction::prms_pp(vector<string> &prms)
+void Instruction::prms_pp(vector<string> &prms, string *&id, Uint32 &delay)
 {
-    string *id = NULL;
+    id = NULL;
+    delay = -1;
     bool quit = false;
     while(!quit) {
         quit = true;
@@ -64,9 +65,14 @@ string *Instruction::prms_pp(vector<string> &prms)
                 quit = false;
                 break;
             }
+            if(it->find("delay=")==0) {
+                delay = boost::lexical_cast<Uint32>(it->substr(6));
+                prms.erase(it);
+                quit = false;
+                break;
+            }
         }
     }
-    return id;
 }
 
 int Instruction::parse_coor(const string &id)
@@ -122,13 +128,16 @@ bool Instruction::explain(vector<string> prms, Instruction *&res)
     if(NULL == Instruction::instlist) {
         Instruction::init_instlist();
     }
-    string *id = Instruction::prms_pp(prms);
+    string *id;
+    Uint32 delay;
+    Instruction::prms_pp(prms, id, delay);
     for(vector<explain_t>::iterator it = instlist->begin();
             it!=instlist->end(); it++) {
         if((*it)(prms, res)) {
             if(id) {
                 inst_by_id[*id] = res;
             }
+            res->delay = delay;
             return true;
         }
     }

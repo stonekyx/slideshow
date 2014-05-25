@@ -35,7 +35,7 @@ int InstText::run(GContext &gc)
     SDL_FreeSurface(text_sur);
     TTF_CloseFont(font);
     finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool InstText::runback(GContext &gc)

@@ -8,7 +8,7 @@ using namespace std;
 int EndSlide::run(GContext &gc)
 {
     if(!finished) {
-        return delay;
+        return this->delay;
     } else {
         finished = false; //for next play
         return -2;
@@ -32,11 +32,6 @@ bool EndSlide::explain(vector<string> prms, Instruction *&inst)
         return false;
     }
     EndSlide *res = new EndSlide();
-    if(prms.size()>1) {
-        res->delay = boost::lexical_cast<int>(prms[1]);
-    } else {
-        res->delay = -1; //default to wait infinitely
-    }
     inst = res;
     return true;
 }

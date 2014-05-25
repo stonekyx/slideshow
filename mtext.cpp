@@ -75,7 +75,7 @@ int InstMText::run(GContext &gc)
     }
     SDL_RenderPresent(gc.renderer);
     this->finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool InstMText::runback(GContext &gc)

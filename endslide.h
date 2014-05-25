@@ -9,7 +9,6 @@
 namespace Slideshow {
     class EndSlide : public Instruction {
         private:
-            int delay;
             bool finished;
         protected:
             EndSlide();

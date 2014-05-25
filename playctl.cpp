@@ -130,20 +130,21 @@ void PlayControl::play()
 {
     int delay;
     while((delay = priv->file->run(priv->gc))!=-2) {
+        SDL_Keycode kc;
         if(delay<0) { //instruction delay
-            SDL_Keycode kc = wait_key(SDLK_UNKNOWN);
-            if(kc==SDLK_q) {
-                return;
-            } else if(kc==SDLK_UP || kc==SDLK_LEFT) {
-                while(kc==SDLK_UP || kc==SDLK_LEFT) {
-                    if(!priv->file->runback(priv->gc)) {
-                        break;
-                    }
-                    kc = wait_key(SDLK_UNKNOWN);
-                }
-            }
+            kc = wait_key(SDLK_UNKNOWN);
         } else {
-            SDL_Delay(delay);
+            kc = wait_key_timeout(delay);
+        }
+        if(kc==SDLK_q) {
+            return;
+        } else if(kc==SDLK_UP || kc==SDLK_LEFT) {
+            while(kc==SDLK_UP || kc==SDLK_LEFT) {
+                if(!priv->file->runback(priv->gc)) {
+                    break;
+                }
+                kc = wait_key(SDLK_UNKNOWN);
+            }
         }
     }
 }

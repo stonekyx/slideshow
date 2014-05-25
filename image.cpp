@@ -25,7 +25,7 @@ int InstImg::run(GContext &gc)
     SDL_RenderPresent(gc.renderer);
     SDL_DestroyTexture(img);
     finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool InstImg::runback(GContext &gc)

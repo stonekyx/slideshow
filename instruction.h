@@ -20,11 +20,12 @@ namespace Slideshow {
         private:
             static std::vector<explain_t> *instlist;
             static void init_instlist();
-            static std::string *prms_pp(std::vector<std::string> &);
+            static void prms_pp(std::vector<std::string> &, std::string *&, Uint32 &);
             static std::map<std::string, Instruction *> inst_by_id;
         protected:
             Instruction() {}
             int parse_coor(const std::string &);
+            Uint32 delay;
         public:
             virtual ~Instruction() {};
             virtual int run(GContext &)=0;

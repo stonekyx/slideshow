@@ -17,7 +17,7 @@ int Slide::run(GContext &gc)
     SDL_RenderClear(gc.renderer);
     SDL_RenderPresent(gc.renderer);
     finished = true;
-    return -1;
+    return this->delay;
 }
 
 bool Slide::runback(GContext &gc)

@@ -1,3 +1,5 @@
+#include <ctime>
+
 #include "util.h"
 
 using namespace Slideshow;
@@ -14,6 +16,34 @@ int Slideshow::wait_key(SDL_Keycode kc)
                 (e.key.keysym.sym==kc || kc==SDLK_UNKNOWN)) {
             return kc==SDLK_UNKNOWN ?
                 e.key.keysym.sym : SDLK_UNKNOWN;
+        }
+    }
+}
+
+SDL_Keycode Slideshow::wait_key_timeout(int timeout)
+{
+    const long long e3 = 1e3, e6 = 1e6, e9 = 1e9;
+    SDL_Event e;
+    struct timespec tar;
+    if(-1==clock_gettime(CLOCK_MONOTONIC, &tar)) {
+        SDL_Delay(timeout);
+        return SDLK_UNKNOWN;
+    }
+    tar.tv_sec += ((long long)tar.tv_nsec+timeout*e6)/e9;
+    tar.tv_nsec = ((long long)tar.tv_nsec+timeout*e6)%e9;
+    while(true) {
+        int curwait;
+        struct timespec now;
+        if(-1==clock_gettime(CLOCK_MONOTONIC, &now)) {
+            return SDLK_UNKNOWN;
+        }
+        curwait = (tar.tv_sec - now.tv_sec)*e3 +
+            (tar.tv_nsec - now.tv_nsec)/e6;
+        if(SDL_WaitEventTimeout(&e, curwait)==0) {
+            return SDLK_UNKNOWN;
+        }
+        if(e.type==SDL_KEYDOWN) {
+            return e.key.keysym.sym;
         }
     }
 }
