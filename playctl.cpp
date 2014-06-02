@@ -78,7 +78,7 @@ void PlayControl::Private::init_sdl(int w, int h, bool disable_gl)
 
     SDL_Delay(100); //seems awesome wm needs this.
     gc.fg.a = 255; gc.fg.r = gc.fg.g = gc.fg.b = 0;
-    gc.bg.a = 255; gc.bg.r = gc.bg.g = gc.bg.b = 255;
+    gc.bg.a = 0; gc.bg.r = gc.bg.g = gc.bg.b = 255;
     SDL_SetRenderDrawColor(gc.renderer,
             gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
     SDL_RenderClear(gc.renderer);
