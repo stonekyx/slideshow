@@ -14,6 +14,9 @@ PKG_CHECK_MODULES([SDL2_image], [SDL2_image])
 PKG_CHECK_MODULES([SDL2_ttf], [SDL2_ttf])
 PKG_CHECK_MODULES([OpenGL], [gl])
 
+AM_CXXFLAGS="-std=c++11"
+AC_SUBST([AM_CXXFLAGS])
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC

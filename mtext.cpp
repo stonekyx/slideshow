@@ -120,8 +120,8 @@ bool InstMText::explain(vector<string> prms, Instruction *&inst)
             seg.lb = false;
             seg.font = *it++;
             seg.font_size = -1;
-            unsigned int sep;
-            if((sep=seg.font.find(":"))!=seg.font.npos) {
+            size_t sep=seg.font.find(":");
+            if(sep!=seg.font.npos) {
                 seg.font_size = boost::lexical_cast<int>(seg.font.substr(sep+1));
                 seg.font = seg.font.substr(0, sep);
             }
