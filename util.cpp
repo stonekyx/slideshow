@@ -57,6 +57,23 @@ SDL_Rect Slideshow::get_rect_from_pos(int x, int y, SDL_Texture *texture)
     return rect;
 }
 
+void Slideshow::clear_with_bg(GContext &gc, SDL_Rect *rect)
+{
+    SDL_SetRenderDrawColor(gc.renderer,
+            gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
+    SDL_RenderFillRect(gc.renderer, rect);
+}
+
+void Slideshow::clear_with_bg(GContext &gc, int x, int y, int w, int h)
+{
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.w = w;
+    rect.h = h;
+    clear_with_bg(gc, &rect);
+}
+
 void Slideshow::get_full_fontpath(string &font)
 {
     while(font.find('/')==font.npos) {

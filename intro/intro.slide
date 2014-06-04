@@ -1,23 +1,41 @@
+point rel 0 0 id=center
+point rel x:center y:center id=bottom-right
+
 newpage delay=1000
 font "georgia.ttf"
 fontsize 100
-point rel 0 0 id=center
 text x5:center y5:center "Slideshow" id=title delay=500
 point x:center Y:title id=title_bottom
 fontsize 40
-mtext x1:title_bottom y1:title_bottom simsun.ttc:40 "利用" georgia.ttf SDL simsun.ttc 的幻灯片放映程序 delay=5000
+aniline x1:title_bottom y1:title_bottom mtext x4:bottom-right y1:title_bottom simsun.ttc:40 "利用" georgia.ttf SDL simsun.ttc 的幻灯片放映程序
+
+newpage delay=0
+fontsize 50
+font times.ttf
+text 50 30 "Purpose" id=purpose-title delay=0
+rect x:purpose-title Y:purpose-title 500 1
+font 微软雅黑.ttf
+fontsize 40
+mtext x5:center y5:center \
+          "" "精确的元素对齐" lb \
+          "" "尽量少用GUI" lb \
+          "" "程序员的小癖好"
 
 newpage delay=0
 fontsize 50
 font times.ttf
 text 50 30 "Features" id=features-title delay=0
-rect x:features-title Y:features-title 500 1 delay=1000
-mtext x5:center y5:center 微软雅黑.ttf "・非所见即所得" lb 微软雅黑.ttf "・用脚本控制幻灯片播放" lb 微软雅黑.ttf "・语句间的相互引用"
+rect x:features-title Y:features-title 500 1
+font 微软雅黑.ttf
+fontsize 40
+mtext x5:center y5:center "" "・非所见即所得" lb \
+          "" "・用脚本控制幻灯片播放" lb \
+          "" "・语句间的相互引用"
 
-newpage
+newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "Example script" id=example-title
+text 50 30 "Example script" id=example-title delay=0
 rect x:example-title Y:example-title 500 1
 
 fontsize 24
@@ -37,19 +55,20 @@ mtext x5:center y5:center \
           "" "        simsun.ttc " \
           "simsun.ttc" "的幻灯片放映程序"
 
-newpage
+newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "Design" id=design-title
+text 50 30 "Design" id=design-title delay=0
 rect x:design-title Y:design-title 500 1
 img x5:center y5:center intro/inherit.png
 
-newpage
+newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "Design patterns" id=dp-title
+text 50 30 "Design patterns" id=dp-title delay=0
 rect x:dp-title Y:dp-title 500 1
 font simsun.ttc
+fontsize 40
 mtext x5:center y5:center \
           "" "观察者模式" lb \
           "" "   " lb \
@@ -59,28 +78,31 @@ mtext x5:center y5:center \
           "" "   " lb \
           "" "组合模式"
 
-newpage
+newpage delay=0
 fontsize 50
 font simsun.ttc
-text 50 30 "观察者模式" id=dp-obs-title
+text 50 30 "观察者模式" id=dp-obs-title delay=0
 rect x:dp-obs-title Y:dp-obs-title 500 1
 img x5:center y5:center intro/dp-obs.png
 
-newpage
+newpage delay=0
 fontsize 50
 font simsun.ttc
-text 50 30 "装饰模式" id=dp-deco-title
+text 50 30 "装饰模式" id=dp-deco-title delay=0
 rect x:dp-deco-title Y:dp-deco-title 500 1
 img x5:center y5:center intro/dp-deco.png
 
-newpage
+newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "End" id=end-title
+text 50 30 "End" id=end-title delay=0
 rect x:end-title Y:end-title 500 1
 font "georgia.ttf"
 fontsize 72
-aniline x5:center y5:center aniline 0 0 text x5:center y5:center "Thanks!"
+fg 255 255 255 0
+text x5:center y5:center "Thanks!" id=thanks-shadow delay=0
+fg 0 0 0 255
+aniline x5:center y5:center aniline X5:thanks-shadow y5:thanks-shadow aniline X5:thanks-shadow Y5:thanks-shadow aniline x5:thanks-shadow Y5:thanks-shadow aniline x5:thanks-shadow y5:thanks-shadow text x5:center y5:center "Thanks!"
 
-point rel x:center y:center id=bottom-right
+fontsize 20
 text x4:bottom-right y4:bottom-right "Stone"

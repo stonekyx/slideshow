@@ -18,6 +18,8 @@ namespace Slideshow {
     int wait_key(SDL_Keycode);
     SDL_Keycode wait_key_timeout(int);
     SDL_Rect get_rect_from_pos(int x, int y, SDL_Texture *);
+    void clear_with_bg(GContext &, SDL_Rect *rect);
+    void clear_with_bg(GContext &, int x, int y, int w, int h);
     void get_full_fontpath(std::string &);
     void reduce_spaces(std::string &);
 }

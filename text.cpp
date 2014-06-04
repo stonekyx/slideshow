@@ -21,6 +21,7 @@ int InstText::run(GContext &gc)
     SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, text.c_str(), gc.fg, gc.bg);
     SDL_SetColorKey(text_sur, SDL_TRUE, SDL_MapRGBA(text_sur->format, gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a));
     SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
+
     SDL_QueryTexture(text_texture, NULL, NULL,
             &this->w, &this->h);
     int x, y;
@@ -28,12 +29,13 @@ int InstText::run(GContext &gc)
     this->x = boost::lexical_cast<string>(x);
     this->y = boost::lexical_cast<string>(y);
     SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
-    SDL_SetRenderDrawColor(gc.renderer,
-            gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
-    SDL_RenderFillRect(gc.renderer, &rect);
+
+    clear_with_bg(gc, &rect);
+
     SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_BLEND);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);
+
     SDL_DestroyTexture(text_texture);
     SDL_FreeSurface(text_sur);
     TTF_CloseFont(font);

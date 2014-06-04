@@ -50,6 +50,9 @@ int InstMText::run(GContext &gc)
     origx = cx;
     this->x = boost::lexical_cast<string>(cx);
     this->y = boost::lexical_cast<string>(cy);
+
+    clear_with_bg(gc, cx, cy, this->w, this->h);
+
     line_height = 0;
     for(vector<Segment>::iterator it = segments.begin();
             it!=segments.end(); it++) {
@@ -63,7 +66,7 @@ int InstMText::run(GContext &gc)
         SDL_SetColorKey(text_sur, SDL_TRUE, SDL_MapRGB(text_sur->format, 255, 255, 255));
         SDL_Texture *text_texture = SDL_CreateTextureFromSurface(gc.renderer, text_sur);
         SDL_Rect rect = get_rect_from_pos(cx, cy, text_texture);
-        SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_NONE);
+        SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_BLEND);
         SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
         SDL_DestroyTexture(text_texture);
         SDL_FreeSurface(text_sur);
