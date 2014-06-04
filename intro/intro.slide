@@ -17,8 +17,8 @@ rect x:purpose-title Y:purpose-title 500 1
 font 微软雅黑.ttf
 fontsize 40
 mtext x5:center y5:center \
-          "" "精确的元素对齐" lb \
-          "" "尽量少用GUI" lb \
+          "" "精确的元素对齐" lb pause \
+          "" "尽量少用GUI" lb pause \
           "" "程序员的小癖好"
 
 newpage delay=0

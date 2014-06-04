@@ -16,11 +16,15 @@ namespace Slideshow {
                     std::string font, text;
                     int font_size;
                     bool lb;
+                    bool pause;
             };
             std::vector<Segment> segments;
+            std::vector<Segment>::iterator it;
+            int cx, cy, line_height;
             std::string x, y;
             int w, h;
             bool finished;
+            void calc_size(GContext &);
         protected:
             InstMText();
         public:

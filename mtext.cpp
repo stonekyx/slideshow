@@ -8,12 +8,9 @@
 using namespace Slideshow;
 using namespace std;
 
-int InstMText::run(GContext &gc)
+/* This function is not using state-saving variables */
+void InstMText::calc_size(GContext &gc)
 {
-    if(this->finished) {
-        this->finished = false;
-        return -2;
-    }
     int line_width=0;
     int width=0, height=0;
     int line_height=0;
@@ -45,21 +42,35 @@ int InstMText::run(GContext &gc)
     }
     this->w = width;
     this->h = height;
-    int cx, cy, origx;
-    this->get_point(&cx, &cy);
-    origx = cx;
-    this->x = boost::lexical_cast<string>(cx);
-    this->y = boost::lexical_cast<string>(cy);
+}
 
-    clear_with_bg(gc, cx, cy, this->w, this->h);
+int InstMText::run(GContext &gc)
+{
+    if(this->finished) {
+        this->finished = false;
+        return -2;
+    }
 
-    line_height = 0;
-    for(vector<Segment>::iterator it = segments.begin();
+    if(it==segments.end()) {
+        this->calc_size(gc);
+        this->get_point(&cx, &cy);
+        this->x = boost::lexical_cast<string>(cx);
+        this->y = boost::lexical_cast<string>(cy);
+        clear_with_bg(gc, cx, cy, this->w, this->h);
+        line_height = 0;
+    }
+    int origx = boost::lexical_cast<int>(this->x);
+
+    for(it = (it==segments.end()?segments.begin():it);
             it!=segments.end(); it++) {
         if(it->lb) {
             cx = origx;
             cy += line_height;
             continue;
+        }
+        if(it->pause) {
+            it++;
+            break;
         }
         TTF_Font *font = TTF_OpenFont(it->font.c_str(), it->font_size);
         SDL_Surface *text_sur = TTF_RenderUTF8_Shaded(font, it->text.c_str(), gc.fg, gc.bg);
@@ -77,13 +88,16 @@ int InstMText::run(GContext &gc)
         }
     }
     SDL_RenderPresent(gc.renderer);
-    this->finished = true;
+    if(it==segments.end()) {
+        this->finished = true;
+    }
     return this->delay;
 }
 
 bool InstMText::runback(GContext &gc)
 {
     finished = false;
+    it = segments.end();
     return false;
 }
 
@@ -116,11 +130,14 @@ bool InstMText::explain(vector<string> prms, Instruction *&inst)
     for(vector<string>::iterator it = prms.begin()+3;
             it!=prms.end(); ) {
         Segment seg;
+        seg.lb = seg.pause = false;
         if(it->compare("lb")==0) {
             seg.lb = true;
             it++;
+        } else if(it->compare("pause")==0) {
+            seg.pause = true;
+            it++;
         } else if(it+1!=prms.end()) {
-            seg.lb = false;
             seg.font = *it++;
             seg.font_size = -1;
             size_t sep=seg.font.find(":");
@@ -137,6 +154,7 @@ bool InstMText::explain(vector<string> prms, Instruction *&inst)
         }
         res->segments.push_back(seg);
     }
+    res->it = res->segments.end();
     inst = res;
     return true;
 }
