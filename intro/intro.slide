@@ -42,15 +42,36 @@ fontsize 50
 font times.ttf
 text 50 30 "Design" id=design-title
 rect x:design-title Y:design-title 500 1
-img x5:center y5:center /tmp/inherit.png
+img x5:center y5:center intro/inherit.png
 
 newpage
 fontsize 50
 font times.ttf
 text 50 30 "Design patterns" id=dp-title
 rect x:dp-title Y:dp-title 500 1
+font simsun.ttc
 mtext x5:center y5:center \
-          "" "TODO: design patterns"
+          "" "观察者模式" lb \
+          "" "   " lb \
+          "" "装饰模式" lb \
+          "" "   " lb \
+          "" "桥模式" lb \
+          "" "   " lb \
+          "" "组合模式"
+
+newpage
+fontsize 50
+font simsun.ttc
+text 50 30 "观察者模式" id=dp-obs-title
+rect x:dp-obs-title Y:dp-obs-title 500 1
+img x5:center y5:center intro/dp-obs.png
+
+newpage
+fontsize 50
+font simsun.ttc
+text 50 30 "装饰模式" id=dp-deco-title
+rect x:dp-deco-title Y:dp-deco-title 500 1
+img x5:center y5:center intro/dp-deco.png
 
 newpage
 fontsize 50
