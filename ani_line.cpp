@@ -194,8 +194,8 @@ int InstAniLine::run(GContext &gc)
     tarrect = subrect;
 
     int tx, ty;
-    tx = this->parse_coor(this->tx);
-    ty = this->parse_coor(this->ty);
+    tx = Instruction::parse_coor(this->tx);
+    ty = Instruction::parse_coor(this->ty);
     this->tx = boost::lexical_cast<string>(tx);
     this->ty = boost::lexical_cast<string>(ty);
 

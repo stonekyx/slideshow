@@ -24,8 +24,8 @@ int InstPoint::run(GContext &gc)
 
 void InstPoint::get_point(int *x, int *y)
 {
-    *x = this->parse_coor(this->x);
-    *y = this->parse_coor(this->y);
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 bool InstPoint::explain(vector<string> prms, Instruction *&inst)

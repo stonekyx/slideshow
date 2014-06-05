@@ -103,8 +103,8 @@ bool InstMText::runback(GContext &gc)
 
 void InstMText::get_point(int *x, int *y)
 {
-    *x = this->parse_coor(this->x);
-    *y = this->parse_coor(this->y);
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 void InstMText::get_size(int *w, int *h)

@@ -17,8 +17,7 @@ int InstRect::run(GContext &gc)
     cout<<"Got rect"<<endl;
     SDL_Rect rect;
     this->get_point(&rect.x, &rect.y);
-    rect.w = Instruction::parse_coor(this->w);
-    rect.h = Instruction::parse_coor(this->h);
+    this->get_size(&rect.w, &rect.h);
     this->x = boost::lexical_cast<string>(rect.x);
     this->y = boost::lexical_cast<string>(rect.y);
     this->w = boost::lexical_cast<string>(rect.w);
@@ -39,14 +38,14 @@ bool InstRect::runback(GContext &gc)
 
 void InstRect::get_point(int *x, int *y)
 {
-    *x = this->parse_coor(this->x);
-    *y = this->parse_coor(this->y);
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 void InstRect::get_size(int *w, int *h)
 {
-    *w = this->parse_coor(this->w);
-    *h = this->parse_coor(this->h);
+    *w = Instruction::parse_coor(this->w);
+    *h = Instruction::parse_coor(this->h);
 }
 
 InstRect::InstRect()

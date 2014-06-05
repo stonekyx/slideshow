@@ -36,8 +36,8 @@ bool InstImg::runback(GContext &gc)
 
 void InstImg::get_point(int *x, int *y)
 {
-    *x = this->parse_coor(this->x);
-    *y = this->parse_coor(this->y);
+    *x = Instruction::parse_coor(this->x);
+    *y = Instruction::parse_coor(this->y);
 }
 
 void InstImg::get_size(int *w, int *h)

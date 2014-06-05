@@ -61,6 +61,8 @@ font times.ttf
 text 50 30 "Design" id=design-title delay=0
 rect x:design-title Y:design-title 500 1
 img x5:center y5:center intro/inherit.png
+font simsun.ttc
+text x5:center y4:bottom-right "所有模块都在运行时动态加载"
 
 newpage delay=0
 fontsize 50
@@ -70,7 +72,7 @@ rect x:dp-title Y:dp-title 500 1
 font simsun.ttc
 fontsize 40
 mtext x5:center y5:center \
-          "" "观察者模式" lb \
+          "" "中介者模式" lb \
           "" "   " lb \
           "" "装饰模式" lb \
           "" "   " lb \
@@ -81,16 +83,73 @@ mtext x5:center y5:center \
 newpage delay=0
 fontsize 50
 font simsun.ttc
-text 50 30 "观察者模式" id=dp-obs-title delay=0
-rect x:dp-obs-title Y:dp-obs-title 500 1
-img x5:center y5:center intro/dp-obs.png
+text 50 30 "中介者模式" id=dp-mdat-title delay=0
+rect x:dp-mdat-title Y:dp-mdat-title 500 1
+img x5:center y5:center intro/dp-mdat.png id=dp-mdat-pic
+fontsize 40
+text x5:center Y1:dp-mdat-pic "所有指令都自动获得灵活的坐标特性"
 
 newpage delay=0
 fontsize 50
 font simsun.ttc
 text 50 30 "装饰模式" id=dp-deco-title delay=0
 rect x:dp-deco-title Y:dp-deco-title 500 1
-img x5:center y5:center intro/dp-deco.png
+img x5:center y5:center intro/dp-deco.png id=dp-deco-pic
+fontsize 40
+text x5:center Y1:dp-deco-pic "如果有更多种动画，它们也将能够自由嵌套"
+
+newpage delay=0
+fontsize 50
+font simsun.ttc
+text 50 30 "桥模式" id=dp-bdg-title delay=0
+rect x:dp-bdg-title Y:dp-bdg-title 500 1
+img x5:center y5:center intro/dp-bdg.png id=dp-bdg-pic
+fontsize 40
+text x5:center Y1:dp-bdg-pic "指令类可以任意改变，不影响用户操作"
+
+newpage delay=0
+fontsize 50
+font simsun.ttc
+text 50 30 "组合模式" id=dp-comp-title delay=0
+rect x:dp-comp-title Y:dp-comp-title 500 1
+
+font "Inconsolata+for+Powerline.otf"
+fontsize 24
+mtext id=dp-comp-pic x5:center y5:center \
+          "" "class File : public Instruction {" lb \
+          "" "  private:" lb \
+          "" "  protected:" lb \
+          "" "    std::vector<Instruction*> inst;" lb \
+          "" "    std::vector<Instruction*>::iterator inst_it;" lb \
+          "" "    Instruction::explain_t inst_abs_explain;" lb \
+          "" " " lb \
+          "" "    File() {}" lb \
+          "" "    virtual bool get_inst(std::vector<Instruction*> &)=0;" lb \
+          "" "  public:" lb \
+          "" "    virtual ~File() {};" lb \
+          "" "    virtual void repaint_to(std::vector<Instruction*>::iterator, GContext &)=0;" lb \
+          "" "};"
+
+font simsun.ttc
+fontsize 40
+mtext x5:center Y1:dp-comp-pic "" " " lb "" "文件也是一种指令，允许将来的文件嵌套"
+
+newpage delay=0
+fontsize 50
+font simsun.ttc
+text 50 30 "缺陷" id=disadv-title delay=0
+rect x:disadv-title Y:disadv-title 500 1
+fontsize 40
+mtext x5:center y5:center \
+          "" "动画效果实现得不完整" lb pause \
+          "" " " lb \
+          "" "脚本文件语法太简单" lb pause \
+          "" " " lb \
+          "" "尚不支持坐标的表达式计算" lb pause \
+          "" " " lb \
+          "" "所有元素都是矩形" lb pause \
+          "" " " lb \
+          "" "过度设计？"
 
 newpage delay=0
 fontsize 50
@@ -98,11 +157,12 @@ font times.ttf
 text 50 30 "End" id=end-title delay=0
 rect x:end-title Y:end-title 500 1
 font "georgia.ttf"
-fontsize 72
+fontsize 32
 fg 255 255 255 0
 text x5:center y5:center "Thanks!" id=thanks-shadow delay=0
 fg 0 0 0 255
+fontsize 72
 aniline x5:center y5:center aniline X5:thanks-shadow y5:thanks-shadow aniline X5:thanks-shadow Y5:thanks-shadow aniline x5:thanks-shadow Y5:thanks-shadow aniline x5:thanks-shadow y5:thanks-shadow text x5:center y5:center "Thanks!"
 
-fontsize 20
+fontsize 30
 text x4:bottom-right y4:bottom-right "Stone"
