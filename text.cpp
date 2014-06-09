@@ -30,8 +30,6 @@ int InstText::run(GContext &gc)
     this->y = boost::lexical_cast<string>(y);
     SDL_Rect rect = get_rect_from_pos(x, y, text_texture);
 
-    clear_with_bg(gc, &rect);
-
     SDL_SetTextureBlendMode(text_texture, SDL_BLENDMODE_BLEND);
     SDL_RenderCopy(gc.renderer, text_texture, NULL, &rect);
     SDL_RenderPresent(gc.renderer);

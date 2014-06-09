@@ -12,27 +12,67 @@ using namespace std;
 
 int InstGContextFG::run(GContext &gc)
 {
+    if(first) {
+        this->old = gc.fg;
+        first = false;
+    }
     gc.fg = this->color;
     return -2;
 }
 
+bool InstGContextFG::runback(GContext &gc)
+{
+    gc.fg = this->old;
+    return false;
+}
+
 int InstGContextBG::run(GContext &gc)
 {
+    if(first) {
+        this->old = gc.bg;
+        first = false;
+    }
     gc.bg = this->color;
     return -2;
 }
 
+bool InstGContextBG::runback(GContext &gc)
+{
+    gc.bg = this->old;
+    return false;
+}
+
 int InstGContextFontSize::run(GContext &gc)
 {
+    if(first) {
+        this->old = gc.font_size;
+        first = false;
+    }
     gc.font_size = this->font_size;
     return -2;
 }
 
+bool InstGContextFontSize::runback(GContext &gc)
+{
+    gc.font_size = this->old;
+    return false;
+}
+
 int InstGContextFontFamily::run(GContext &gc)
 {
+    if(first) {
+        this->old = gc.font_family;
+        first = false;
+    }
     gc.font_family = this->font_family;
     get_full_fontpath(gc.font_family);
     return -2;
+}
+
+bool InstGContextFontFamily::runback(GContext &gc)
+{
+    gc.font_family = this->old;
+    return false;
 }
 
 bool InstGContext::explain(vector<string> prms, Instruction *&inst)

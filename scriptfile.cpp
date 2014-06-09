@@ -115,7 +115,8 @@ bool ScriptFile::runback(GContext &gc)
 void ScriptFile::repaint_to(vector<Instruction*>::iterator target, GContext &gc)
 {
     vector<Instruction*>::iterator it;
-    for(it = target; !(*it)->will_clear_screen(); it--) {
+    for(it = target; it!=inst.begin() && !(*it)->will_clear_screen();
+            it--) {
     }
     for(; it!=target+1; it++) {
         while((*it)->run(gc)!=-2);

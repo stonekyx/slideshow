@@ -12,18 +12,6 @@ aniline x1:title_bottom y1:title_bottom mtext x4:bottom-right y1:title_bottom si
 newpage delay=0
 fontsize 50
 font times.ttf
-text 50 30 "Purpose" id=purpose-title delay=0
-rect x:purpose-title Y:purpose-title 500 1
-font 微软雅黑.ttf
-fontsize 40
-mtext x5:center y5:center \
-          "" "精确的元素对齐" lb pause \
-          "" "尽量少用GUI" lb pause \
-          "" "程序员的小癖好"
-
-newpage delay=0
-fontsize 50
-font times.ttf
 text 50 30 "Features" id=features-title delay=0
 rect x:features-title Y:features-title 500 1
 font 微软雅黑.ttf
@@ -38,22 +26,58 @@ font times.ttf
 text 50 30 "Example script" id=example-title delay=0
 rect x:example-title Y:example-title 500 1
 
-fontsize 24
+fontsize 32
 font "Inconsolata+for+Powerline.otf"
 mtext x5:center y5:center \
-          "" "newpage" lb \
-          "" "font georgia.ttf" lb \
-          "" "fontsize 100" lb \
           "" "point rel 0 0 id=center" lb \
+          "simsun.ttc" "/* 在屏幕中央定义一个点 */" lb \
+          "" " " lb \
           "" "text x5:center y5:center Slideshow id=title" lb \
-          "" "point x:center Y:title id=title_bottom" lb \
-          "" "fontsize 40" lb \
-          "" "mtext x1:title_bottom y1:title_bottom \\" lb \
-          "" "        simsun.ttc:40 \"" \
+          "simsun.ttc" "/* 将文字的中心设置为上面的点 */" lb \
+          "" " " lb \
+          "" "text x1:center Y1:title " \
           "simsun.ttc" "利用" \
-          "" "\" georgia.ttf SDL \\" lb \
-          "" "        simsun.ttc " \
-          "simsun.ttc" "的幻灯片放映程序"
+          "" "SDL" \
+          "simsun.ttc" "的幻灯片放映程序" lb \
+          "simsun.ttc" "/* 将文字左上角的横纵坐标设置为不同的引用 */"
+
+newpage delay=0
+fontsize 50
+font simsun.ttc
+text 50 30 "坐标引用的解释" id=ref-explain-title delay=0
+rect x:ref-explain-title Y:ref-explain-title 500 1 delay=0
+rect x5:center y5:center 306 306 id=ref-explain-rect delay=0
+fg 255 255 255 0
+rect x5:center y5:center 300 300 delay=0
+fg 0 0 0 255
+text x4:ref-explain-rect y4:ref-explain-rect "1"
+text X3:ref-explain-rect y3:ref-explain-rect "2"
+text x2:ref-explain-rect Y2:ref-explain-rect "3"
+text X1:ref-explain-rect Y1:ref-explain-rect "4"
+text x5:center y5:center "5"
+
+rect X1:ref-explain-rect Y3:ref-explain-rect 200 200
+rect X4:ref-explain-rect y4:ref-explain-rect 100 100
+rect x2:ref-explain-rect y2:ref-explain-rect 50 50
+rect x1:ref-explain-rect Y1:ref-explain-rect 25 25
+
+fontsize 40
+mtext x5:center Y1:ref-explain-rect \
+          "" " " lb \
+          "" "四个黑色矩形与中央矩形的坐标引用分别为" lb \
+          "times.ttf" "(X1,Y3), (X4,y4), (x2,y2), (x1,Y1)"
+
+newpage delay=0
+fontsize 50
+font times.ttf
+text 50 30 "Purpose" id=purpose-title delay=0
+rect x:purpose-title Y:purpose-title 500 1
+font 微软雅黑.ttf
+fontsize 40
+mtext x5:center y5:center \
+          "" "精确的元素对齐" lb pause \
+          "" "尽量少用GUI" lb pause \
+          "" "程序员的小癖好"
 
 newpage delay=0
 fontsize 50

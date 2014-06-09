@@ -56,7 +56,6 @@ int InstMText::run(GContext &gc)
         this->get_point(&cx, &cy);
         this->x = boost::lexical_cast<string>(cx);
         this->y = boost::lexical_cast<string>(cy);
-        clear_with_bg(gc, cx, cy, this->w, this->h);
         line_height = 0;
     }
     int origx = boost::lexical_cast<int>(this->x);
@@ -163,4 +162,21 @@ extern "C"
 InstMText::explain_t get_explain()
 {
     return InstMText::explain;
+}
+
+static void lib_init() __attribute__((constructor));
+static void lib_exit() __attribute__((destructor));
+
+void lib_init()
+{
+    if(!TTF_WasInit()) {
+        TTF_Init();
+    }
+}
+
+void lib_exit()
+{
+    if(TTF_WasInit()) {
+        TTF_Quit();
+    }
 }

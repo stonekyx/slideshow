@@ -12,9 +12,7 @@ int Slide::run(GContext &gc)
         finished = false;
         return -2;
     }
-    SDL_SetRenderDrawColor(gc.renderer,
-            gc.bg.r, gc.bg.g, gc.bg.b, gc.bg.a);
-    SDL_RenderClear(gc.renderer);
+    clear_with_bg(gc, NULL);
     SDL_RenderPresent(gc.renderer);
     finished = true;
     return this->delay;

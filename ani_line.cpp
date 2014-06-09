@@ -6,6 +6,7 @@
 
 #include <GL/gl.h>
 
+#include "util.h"
 #include "ani_line.h"
 
 using namespace Slideshow;
@@ -180,6 +181,7 @@ int InstAniLine::run(GContext &gc)
     if(SDL_SetRenderTarget(gc.renderer, subinst_texture)) {
         throw new exception();
     }
+    clear_with_bg(gc, NULL);
     while(subinst->run(gc)!=-2) {
     }
     if(SDL_SetRenderTarget(gc.renderer, NULL)) {
@@ -215,7 +217,7 @@ int InstAniLine::run(GContext &gc)
     if(SDL_SetRenderTarget(gc.renderer, orig_target)) {
         throw new exception();
     }
-    SDL_SetTextureBlendMode(subinst_texture, SDL_BLENDMODE_NONE);
+    SDL_SetTextureBlendMode(subinst_texture, SDL_BLENDMODE_BLEND);
     SDL_RenderCopy(gc.renderer, subinst_texture, &subrect, &tarrect);
     if(orig_target==NULL) {
         SDL_RenderPresent(gc.renderer);
